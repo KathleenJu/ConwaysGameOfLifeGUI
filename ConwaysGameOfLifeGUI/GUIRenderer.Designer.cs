@@ -1,6 +1,8 @@
-﻿namespace ConwaysGameOfLifeGUI
+﻿using System.Windows.Forms;
+
+namespace ConwaysGameOfLifeGUI
 {
-    partial class Form1
+    partial class GUIRenderer
     {
         /// <summary>
         /// Required designer variable.
@@ -28,13 +30,36 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.Grid = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.Grid)).BeginInit();
+            this.SuspendLayout();
+            // 
+            // Grid
+            // 
+            this.Grid.Location = new System.Drawing.Point(1, 200);
+            this.Grid.Name = "Grid";
+            this.Grid.Size = new System.Drawing.Size(1172, 930);
+            this.Grid.TabIndex = 1;
+            this.Grid.TabStop = false;
+            // 
+            // GUIRenderer
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1174, 1129);
+            this.Controls.Add(this.Grid);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
+            this.Name = "GUIRenderer";
             this.Text = "Form1";
+            ((System.ComponentModel.ISupportInitialize)(this.Grid)).EndInit();
+            this.ResumeLayout(false);
+
         }
 
         #endregion
+        private PictureBox Grid;
     }
 }
 

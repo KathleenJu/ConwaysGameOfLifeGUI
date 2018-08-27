@@ -46,14 +46,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form1.cs">
+    <Compile Include="Cell.cs" />
+    <Compile Include="DeadEvolutionRules.cs" />
+    <Compile Include="GUIRenderer.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="GUIRenderer.Designer.cs">
+      <DependentUpon>GUIRenderer.cs</DependentUpon>
     </Compile>
+    <Compile Include="GameEngine.cs" />
+    <Compile Include="GameOfLife.cs" />
+    <Compile Include="Grid.cs" />
+    <Compile Include="IRenderer.cs" />
+    <Compile Include="LiveEvolutionRules.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="GUIRenderer.resx">
+      <DependentUpon>GUIRenderer.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ConwaysGameOfLifeGUI
 {
-    class Grid
+    public class Grid
     {
         public int Height { get; }
         public int Width { get; }

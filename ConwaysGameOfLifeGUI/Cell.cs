@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ConwaysGameOfLifeGUI
 {
-    class Cell
+    public class Cell
     {
         public int Row { get; }
         public int Column { get; }

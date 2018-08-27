@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ConwaysGameOfLifeGUI
 {
-    interface IRenderer
+    public interface IRenderer
     {
         void SetTitle(string title);
         void SetGenerationNumber(int generation);
