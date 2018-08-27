@@ -7,6 +7,7 @@ using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -17,22 +18,26 @@ namespace ConwaysGameOfLifeGUI
         private string Title;
         private int Generation;
         private int NumberOfLivingCells;
-        private Grid Grid1;
+        private Grid Grid;
 
         public GUIRenderer()
         {
             InitializeComponent();
-            this.Grid.Width = this.Width - 100;
-            this.Grid.Height = this.Height - 100;
-            this.Grid.BackColor = Color.Black;
-            this.Grid.BorderStyle = BorderStyle.None;
-            
+            this.GridBox.Width = this.Width ;
+            this.GridBox.Height = this.Height ;
+            this.GridBox.BackColor = Color.Black;
+            this.GridBox.BorderStyle = BorderStyle.None;
+
+            this.widthBox.Value = this.GridBox.Size.Width - 30;
+            this.heightBox.Value = this.GridBox.Size.Height - 30;
+            SetGrid(new Grid(100, 100));
             RenderGrid();
         }
 
         public int GetGridDimension(string dimension)
         {
-            throw new NotImplementedException();
+            var dimensionBox = dimension == "width" ? widthBox : heightBox;
+            return (int) dimensionBox.Value;
         }
 
         public List<Cell> GetInitialStateOfGrid()
@@ -42,35 +47,25 @@ namespace ConwaysGameOfLifeGUI
 
         public void RenderGrid()
         {
-
-            //var image1 = new Bitmap(Grid.Width,Grid.Height);
-
-            ////Graphics g1 = Graphics.FromImage(image1);
-            //using (Graphics G = Graphics.FromImage(image1))
-            //{
-            //    G.DrawRectangle(Pens.Red, 2, 2, 10, 10);
-
-            //}
-            //g1.Clear(Color.Orange);
-            //g1.DrawRectangle(Pens.Red, 2, 2, 10, 10);
-            //g1.DrawRectangle(Pens.Red, 3, 3, 10, 10);
-            //g1.DrawRectangle(Pens.Red, 4, 4, 10, 10);
-            //image1.SetPixel(10,10, Color.Red);
-            //image1.SetPixel(20, 20, Color.Red);
-
-
-            //Grid.Image = image1;
-            this.Grid.Image = this.Draw();
-
+            
+            this.GridBox.Image = this.Draw();
+            GridBox.Invalidate();
         }
 
         public Bitmap Draw()
         {
-            var bitmap = new Bitmap(this.Grid.Width, this.Grid.Height);
+            var bitmap = new Bitmap(this.GridBox.Width, this.GridBox.Height);
             var graphics = Graphics.FromImage(bitmap);
-            
-            graphics.FillRectangle(new SolidBrush(Color.DodgerBlue), 10, 10, 10, 10);
-
+            var cellSize = 10;
+            //var foo = Grid.GetLivingCells().ToList();
+            var foo = new List<Cell> {new Cell(11, 11), new Cell(3, 2), new Cell(3, 3), new Cell(10, 10)};
+            for (int i = 0; i < NumberOfLivingCells; i++)
+            {
+                graphics.FillRectangle(new SolidBrush(Color.DodgerBlue), 5 + cellSize, 5 + cellSize, cellSize, cellSize);
+                
+            }
+            //graphics.FillRectangle(new SolidBrush(Color.DodgerBlue), 0, 0, cellSize, cellSize);
+            //graphics.FillRectangle(new SolidBrush(Color.DodgerBlue), 2 + cellSize, 2 + cellSize, cellSize, cellSize);
             return bitmap;
         }
 
@@ -81,24 +76,22 @@ namespace ConwaysGameOfLifeGUI
 
         public void SetGenerationNumber(int generation)
         {
-            throw new NotImplementedException();
+            GenerationNumber.Text = generation.ToString();
         }
 
         public void SetGrid(Grid grid)
         {
-            throw new NotImplementedException();
+            Grid = grid;
         }
 
         public void SetNumberOfLivingCells(int noOflivingCells)
         {
-            throw new NotImplementedException();
+            NoOfLivingCells.Text = noOflivingCells.ToString();
         }
 
         public void SetTitle(string title)
         {
-            Title = "Conway's Game Of Life";
+            Title = title;
         }
-
-        
     }
 }

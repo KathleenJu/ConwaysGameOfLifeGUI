@@ -14,9 +14,14 @@ namespace ConwaysGameOfLifeGUI
         [STAThread]
         static void Main()
         {
+            
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new GUIRenderer());
+            //var gameOfLife = new GameOfLife();
+            //var renderer = new GUIRenderer();
+            //var gameEngine = new GameEngine(gameOfLife, renderer);
+            //gameEngine.StartGame();
         }
     }
 }
