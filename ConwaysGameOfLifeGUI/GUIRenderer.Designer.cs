@@ -36,9 +36,10 @@ namespace ConwaysGameOfLifeGUI
             // 
             // Grid
             // 
-            this.Grid.Location = new System.Drawing.Point(1, 200);
+            this.Grid.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.Grid.Location = new System.Drawing.Point(1, 268);
             this.Grid.Name = "Grid";
-            this.Grid.Size = new System.Drawing.Size(1172, 930);
+            this.Grid.Size = new System.Drawing.Size(1172, 862);
             this.Grid.TabIndex = 1;
             this.Grid.TabStop = false;
             // 

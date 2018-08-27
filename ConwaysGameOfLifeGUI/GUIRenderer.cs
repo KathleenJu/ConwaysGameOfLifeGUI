@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Drawing.Imaging;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,11 +17,16 @@ namespace ConwaysGameOfLifeGUI
         private string Title;
         private int Generation;
         private int NumberOfLivingCells;
-        private string GridString;
+        private Grid Grid1;
 
         public GUIRenderer()
         {
             InitializeComponent();
+            this.Grid.Width = this.Width - 100;
+            this.Grid.Height = this.Height - 100;
+            this.Grid.BackColor = Color.Black;
+            this.Grid.BorderStyle = BorderStyle.None;
+            
             RenderGrid();
         }
 
@@ -35,47 +42,36 @@ namespace ConwaysGameOfLifeGUI
 
         public void RenderGrid()
         {
-            //using (Graphics g = this.CreateGraphics())
+
+            //var image1 = new Bitmap(Grid.Width,Grid.Height);
+
+            ////Graphics g1 = Graphics.FromImage(image1);
+            //using (Graphics G = Graphics.FromImage(image1))
             //{
-            //    int numOfCells = 50;
-            //    int cellSize = 30;
-            //    Pen p = new Pen(Color.Black);
-            //    for (int y = 0; y < numOfCells; ++y)
-            //    {
-            //        g.DrawLine(p, 0, y * cellSize, this.Width, y * cellSize);
-            //    }
+            //    G.DrawRectangle(Pens.Red, 2, 2, 10, 10);
 
-            //    for (int x = 0; x < numOfCells; ++x)
-            //    {
-            //        g.DrawLine(p, x * cellSize, 0, x * cellSize, this.Height);
-            //    }
-            //    //g.DrawRectangle(new Pen(Color.Red), 0, panel1.Height, cellSize, cellSize);
-            //    //g.FillRectangle(Brushes.Red, 0, panel1.Height, cellSize, cellSize);
             //}
-            var image1 = new Bitmap(Grid.Width,Grid.Height);
+            //g1.Clear(Color.Orange);
+            //g1.DrawRectangle(Pens.Red, 2, 2, 10, 10);
+            //g1.DrawRectangle(Pens.Red, 3, 3, 10, 10);
+            //g1.DrawRectangle(Pens.Red, 4, 4, 10, 10);
+            //image1.SetPixel(10,10, Color.Red);
+            //image1.SetPixel(20, 20, Color.Red);
 
-            int x, y;
 
-            // Loop through the images pixels to reset color.
-            for (x = 0; x < image1.Width; x++)
-            {
-                for (y = 0; y < image1.Height; y++)
-                {
-                    Color pixelColor = image1.GetPixel(x, y);
-                    Color newColor = Color.Red;
-                    image1.SetPixel(x, y, newColor);
-                }
-            }
+            //Grid.Image = image1;
+            this.Grid.Image = this.Draw();
 
-            image1.SetPixel(10,10, Color.Red);
-            // Set the PictureBox to display the image.
+        }
+
+        public Bitmap Draw()
+        {
+            var bitmap = new Bitmap(this.Grid.Width, this.Grid.Height);
+            var graphics = Graphics.FromImage(bitmap);
             
-            Grid.Image = image1;
-            Graphics g1 = Graphics.FromImage(this.Grid.Image);
+            graphics.FillRectangle(new SolidBrush(Color.DodgerBlue), 10, 10, 10, 10);
 
-            Pen gridPen = new Pen(Color.Black, 1);
-
-            g1.DrawLine(gridPen, 0, 0, 100, 100);
+            return bitmap;
         }
 
         public void RenderTitle()
