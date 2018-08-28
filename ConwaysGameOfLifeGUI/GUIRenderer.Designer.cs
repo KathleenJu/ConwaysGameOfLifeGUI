@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System.Drawing;
+using System.Windows.Forms;
 
 namespace ConwaysGameOfLifeGUI
 {
@@ -33,16 +34,18 @@ namespace ConwaysGameOfLifeGUI
             this.GridBox = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.widthBox = new System.Windows.Forms.NumericUpDown();
-            this.heightBox = new System.Windows.Forms.NumericUpDown();
+            this.WidthBox = new System.Windows.Forms.NumericUpDown();
+            this.HeightBox = new System.Windows.Forms.NumericUpDown();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.GenerationNumber = new System.Windows.Forms.Label();
             this.NoOfLivingCells = new System.Windows.Forms.Label();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.WidthButton = new System.Windows.Forms.Button();
+            this.HeightButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.GridBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.widthBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.heightBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.WidthBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.HeightBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -51,10 +54,10 @@ namespace ConwaysGameOfLifeGUI
             // 
             // GridBox
             // 
-            this.GridBox.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.GridBox.Location = new System.Drawing.Point(3, 256);
+            this.GridBox.BackColor = System.Drawing.Color.Black;
+            this.GridBox.Location = new System.Drawing.Point(0, 175);
             this.GridBox.Name = "GridBox";
-            this.GridBox.Size = new System.Drawing.Size(1172, 879);
+            this.GridBox.Size = new System.Drawing.Size(1200, 1000);
             this.GridBox.TabIndex = 1;
             this.GridBox.TabStop = false;
             // 
@@ -62,7 +65,7 @@ namespace ConwaysGameOfLifeGUI
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.125F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(38, 182);
+            this.label1.Location = new System.Drawing.Point(12, 128);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(163, 31);
             this.label1.TabIndex = 2;
@@ -72,64 +75,64 @@ namespace ConwaysGameOfLifeGUI
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.125F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(48, 185);
+            this.label2.Location = new System.Drawing.Point(27, 128);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(170, 31);
             this.label2.TabIndex = 3;
             this.label2.Text = "No. of Cells: ";
             // 
-            // widthBox
+            // WidthBox
             // 
-            this.widthBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.widthBox.Increment = new decimal(new int[] {
+            this.WidthBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.WidthBox.Increment = new decimal(new int[] {
             10,
             0,
             0,
             0});
-            this.widthBox.Location = new System.Drawing.Point(308, 39);
-            this.widthBox.Maximum = new decimal(new int[] {
+            this.WidthBox.Location = new System.Drawing.Point(262, 39);
+            this.WidthBox.Maximum = new decimal(new int[] {
+            1200,
+            0,
+            0,
+            0});
+            this.WidthBox.Minimum = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            this.WidthBox.Name = "WidthBox";
+            this.WidthBox.Size = new System.Drawing.Size(166, 38);
+            this.WidthBox.TabIndex = 6;
+            this.WidthBox.Value = new decimal(new int[] {
             1000,
             0,
             0,
             0});
-            this.widthBox.Minimum = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
-            this.widthBox.Name = "widthBox";
-            this.widthBox.Size = new System.Drawing.Size(166, 38);
-            this.widthBox.TabIndex = 6;
-            this.widthBox.Value = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
             // 
-            // heightBox
+            // HeightBox
             // 
-            this.heightBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.heightBox.Increment = new decimal(new int[] {
+            this.HeightBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.HeightBox.Increment = new decimal(new int[] {
             10,
             0,
             0,
             0});
-            this.heightBox.Location = new System.Drawing.Point(340, 39);
-            this.heightBox.Maximum = new decimal(new int[] {
-            800,
+            this.HeightBox.Location = new System.Drawing.Point(290, 37);
+            this.HeightBox.Maximum = new decimal(new int[] {
+            1200,
             0,
             0,
             0});
-            this.heightBox.Minimum = new decimal(new int[] {
+            this.HeightBox.Minimum = new decimal(new int[] {
             100,
             0,
             0,
             0});
-            this.heightBox.Name = "heightBox";
-            this.heightBox.Size = new System.Drawing.Size(170, 38);
-            this.heightBox.TabIndex = 7;
-            this.heightBox.Value = new decimal(new int[] {
-            100,
+            this.HeightBox.Name = "HeightBox";
+            this.HeightBox.Size = new System.Drawing.Size(170, 38);
+            this.HeightBox.TabIndex = 7;
+            this.HeightBox.Value = new decimal(new int[] {
+            1000,
             0,
             0,
             0});
@@ -138,7 +141,7 @@ namespace ConwaysGameOfLifeGUI
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label3.Location = new System.Drawing.Point(38, 39);
+            this.label3.Location = new System.Drawing.Point(12, 37);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(234, 31);
             this.label3.TabIndex = 8;
@@ -148,7 +151,7 @@ namespace ConwaysGameOfLifeGUI
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label4.Location = new System.Drawing.Point(48, 41);
+            this.label4.Location = new System.Drawing.Point(27, 39);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(244, 31);
             this.label4.TabIndex = 9;
@@ -158,7 +161,7 @@ namespace ConwaysGameOfLifeGUI
             // 
             this.GenerationNumber.AutoSize = true;
             this.GenerationNumber.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.GenerationNumber.Location = new System.Drawing.Point(207, 182);
+            this.GenerationNumber.Location = new System.Drawing.Point(181, 125);
             this.GenerationNumber.Name = "GenerationNumber";
             this.GenerationNumber.Size = new System.Drawing.Size(33, 37);
             this.GenerationNumber.TabIndex = 11;
@@ -168,7 +171,7 @@ namespace ConwaysGameOfLifeGUI
             // 
             this.NoOfLivingCells.AutoSize = true;
             this.NoOfLivingCells.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.NoOfLivingCells.Location = new System.Drawing.Point(236, 182);
+            this.NoOfLivingCells.Location = new System.Drawing.Point(214, 125);
             this.NoOfLivingCells.Name = "NoOfLivingCells";
             this.NoOfLivingCells.Size = new System.Drawing.Size(35, 37);
             this.NoOfLivingCells.TabIndex = 12;
@@ -176,43 +179,68 @@ namespace ConwaysGameOfLifeGUI
             // 
             // splitContainer1
             // 
-            this.splitContainer1.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.splitContainer1.Location = new System.Drawing.Point(2, 1);
+            this.splitContainer1.FixedPanel = System.Windows.Forms.FixedPanel.Panel2;
+            this.splitContainer1.IsSplitterFixed = true;
+            this.splitContainer1.Location = new System.Drawing.Point(0, 0);
             this.splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.Controls.Add(this.GenerationNumber);
+            this.splitContainer1.Panel1.Controls.Add(this.WidthBox);
+            this.splitContainer1.Panel1.Controls.Add(this.WidthButton);
             this.splitContainer1.Panel1.Controls.Add(this.label3);
             this.splitContainer1.Panel1.Controls.Add(this.label1);
-            this.splitContainer1.Panel1.Controls.Add(this.GenerationNumber);
-            this.splitContainer1.Panel1.Controls.Add(this.widthBox);
             // 
             // splitContainer1.Panel2
             // 
+            this.splitContainer1.Panel2.CausesValidation = false;
+            this.splitContainer1.Panel2.Controls.Add(this.HeightButton);
             this.splitContainer1.Panel2.Controls.Add(this.label4);
             this.splitContainer1.Panel2.Controls.Add(this.NoOfLivingCells);
-            this.splitContainer1.Panel2.Controls.Add(this.heightBox);
+            this.splitContainer1.Panel2.Controls.Add(this.HeightBox);
             this.splitContainer1.Panel2.Controls.Add(this.label2);
-            this.splitContainer1.Size = new System.Drawing.Size(1172, 240);
-            this.splitContainer1.SplitterDistance = 556;
+            this.splitContainer1.Size = new System.Drawing.Size(2842, 227);
+            this.splitContainer1.SplitterDistance = 551;
             this.splitContainer1.TabIndex = 13;
+            // 
+            // WidthButton
+            // 
+            this.WidthButton.BackColor = System.Drawing.SystemColors.Control;
+            this.WidthButton.Location = new System.Drawing.Point(452, 29);
+            this.WidthButton.Name = "WidthButton";
+            this.WidthButton.Size = new System.Drawing.Size(86, 60);
+            this.WidthButton.TabIndex = 13;
+            this.WidthButton.Text = "OK";
+            this.WidthButton.UseVisualStyleBackColor = false;
+            this.WidthButton.Click += new System.EventHandler(this.widthButton_Click);
+            // 
+            // HeightButton
+            // 
+            this.HeightButton.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.HeightButton.Location = new System.Drawing.Point(492, 26);
+            this.HeightButton.Name = "HeightButton";
+            this.HeightButton.Size = new System.Drawing.Size(94, 63);
+            this.HeightButton.TabIndex = 13;
+            this.HeightButton.Text = "OK";
+            this.HeightButton.UseVisualStyleBackColor = false;
+            this.HeightButton.Click += new System.EventHandler(this.HeightButton_Click);
             // 
             // GUIRenderer
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.ClientSize = new System.Drawing.Size(1176, 1143);
-            this.Controls.Add(this.splitContainer1);
+            this.ClientSize = new System.Drawing.Size(1200, 1000);
             this.Controls.Add(this.GridBox);
+            this.Controls.Add(this.splitContainer1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "GUIRenderer";
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.GridBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.widthBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.heightBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.WidthBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.HeightBox)).EndInit();
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.PerformLayout();
             this.splitContainer1.Panel2.ResumeLayout(false);
@@ -227,13 +255,15 @@ namespace ConwaysGameOfLifeGUI
         private PictureBox GridBox;
         private Label label1;
         private Label label2;
-        private NumericUpDown widthBox;
-        private NumericUpDown heightBox;
+        private NumericUpDown WidthBox;
+        private NumericUpDown HeightBox;
         private Label label3;
         private Label label4;
         private Label GenerationNumber;
         private Label NoOfLivingCells;
         private SplitContainer splitContainer1;
+        private Button WidthButton;
+        private Button HeightButton;
     }
 }
 

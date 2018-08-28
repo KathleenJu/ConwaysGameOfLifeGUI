@@ -15,7 +15,8 @@ namespace ConwaysGameOfLifeGUI
         void RenderTitle();
         int GetGridDimension(string dimension);
         List<Cell> GetInitialStateOfGrid();
-        //        void RenderGridBorder(int height, int width);
+        void SetGridWidth(int width);
+        void SetGridHeight(int height);
         void RenderGrid();
     }
 }

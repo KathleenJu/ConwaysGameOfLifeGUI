@@ -16,27 +16,20 @@ namespace ConwaysGameOfLifeGUI
     public partial class GUIRenderer : Form, IRenderer
     {
         private string Title;
-        private int Generation;
-        private int NumberOfLivingCells;
         private Grid Grid;
 
         public GUIRenderer()
         {
             InitializeComponent();
-            this.GridBox.Width = this.Width ;
-            this.GridBox.Height = this.Height ;
-            this.GridBox.BackColor = Color.Black;
-            this.GridBox.BorderStyle = BorderStyle.None;
-
-            this.widthBox.Value = this.GridBox.Size.Width - 30;
-            this.heightBox.Value = this.GridBox.Size.Height - 30;
             SetGrid(new Grid(100, 100));
             RenderGrid();
         }
 
+       
+
         public int GetGridDimension(string dimension)
         {
-            var dimensionBox = dimension == "width" ? widthBox : heightBox;
+            var dimensionBox = dimension == "width" ? WidthBox : HeightBox;
             return (int) dimensionBox.Value;
         }
 
@@ -45,11 +38,20 @@ namespace ConwaysGameOfLifeGUI
             return new List<Cell> { new Cell(0, 0) };
         }
 
+        public void SetGridWidth(int width)
+        {
+            this.GridBox.Width = width;
+        }
+
+        public void SetGridHeight(int height)
+        {
+            this.GridBox.Height = height;
+        }
+
         public void RenderGrid()
         {
-            
             this.GridBox.Image = this.Draw();
-            GridBox.Invalidate();
+            this.GridBox.Invalidate();
         }
 
         public Bitmap Draw()
@@ -58,14 +60,11 @@ namespace ConwaysGameOfLifeGUI
             var graphics = Graphics.FromImage(bitmap);
             var cellSize = 10;
             //var foo = Grid.GetLivingCells().ToList();
-            var foo = new List<Cell> {new Cell(11, 11), new Cell(3, 2), new Cell(3, 3), new Cell(10, 10)};
-            for (int i = 0; i < NumberOfLivingCells; i++)
+            var foo = new List<Cell> {new Cell(0, 0), new Cell(1, 1), new Cell(2, 2)};
+            for (int i = 0; i < foo.Count; i++)
             {
-                graphics.FillRectangle(new SolidBrush(Color.DodgerBlue), 5 + cellSize, 5 + cellSize, cellSize, cellSize);
-                
+                graphics.FillRectangle(Brushes.Aqua, foo[i].Row * cellSize, foo[i].Column * cellSize, cellSize, cellSize);
             }
-            //graphics.FillRectangle(new SolidBrush(Color.DodgerBlue), 0, 0, cellSize, cellSize);
-            //graphics.FillRectangle(new SolidBrush(Color.DodgerBlue), 2 + cellSize, 2 + cellSize, cellSize, cellSize);
             return bitmap;
         }
 
@@ -93,5 +92,18 @@ namespace ConwaysGameOfLifeGUI
         {
             Title = title;
         }
+
+        private void widthButton_Click(object sender, EventArgs e)
+        {
+            SetGridWidth((int) this.WidthBox.Value);
+            WidthButton.Enabled = false;
+        }
+
+        private void HeightButton_Click(object sender, EventArgs e)
+        {
+            SetGridHeight((int) this.HeightBox.Value);
+            HeightButton.Enabled = false;
+        }
+
     }
 }
