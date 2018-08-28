@@ -13,37 +13,44 @@ using System.Windows.Forms;
 
 namespace ConwaysGameOfLifeGUI
 {
-    public partial class GUIRenderer : Form, IRenderer
+    public partial class GUIRenderer : Form
     {
         private string Title;
-        private Grid Grid;
+        private GameEngine GameEngine;
+       
 
-        public GUIRenderer()
+        public GUIRenderer(GameEngine gameEngine)
         {
             InitializeComponent();
-            //SetGrid(new Grid(1000, 1000));
-            RenderGrid();
+            RenderTitle();
+            GameEngine = gameEngine;
+
         }
 
         public List<Cell> GetInitialStateOfGrid()
         {
-            return new List<Cell> { new Cell(0, 0), new Cell(1,1), new Cell(2,2) };
+            return new List<Cell>
+            {
+                new Cell(0,0), new Cell(0, 1), new Cell(0, 2), new Cell(0, 3), new Cell(0, 4), new Cell(0, 5), new Cell(0, 6),
+                new Cell(4,4), new Cell(4,5),new Cell(4,6),new Cell(3,5),new Cell(7,5), new Cell(2,6),new Cell(8,6), new Cell(1,8), new Cell(9,8),
+                new Cell(4,4), new Cell(4,5),new Cell(4,6),new Cell(3,5),new Cell(7,5), new Cell(2,6),new Cell(8,6), new Cell(1,8), new Cell(9,8)
+            };
         }
 
-        public void SetGridWidth(int width)
+        public int GetGridWidth()
         {
-            this.GridBox.Width = width;
+            return (int) WidthBox.Value;
         }
 
-        public void SetGridHeight(int height)
+        public int GetGridHeight()
         {
-            this.GridBox.Height = height;
+            return (int)HeightBox.Value;
         }
 
         public void RenderGrid()
         {
             this.GridBox.Image = this.Draw();
-            this.GridBox.Invalidate();
+            this.GridBox.Refresh();
         }
 
         public Bitmap Draw()
@@ -51,13 +58,31 @@ namespace ConwaysGameOfLifeGUI
             var bitmap = new Bitmap(this.GridBox.Width, this.GridBox.Height);
             var graphics = Graphics.FromImage(bitmap);
             var cellSize = 10;
-            //var livingCellsList = Grid.GetLivingCells().ToList();
-            var foo = new List<Cell> {new Cell(0, 0), new Cell(1, 1), new Cell(2, 2), new Cell(3,2), new Cell(5,4), new Cell(1,4)};
-            for (int i = 0; i < foo.Count; i++)
+            var livingCellsList = GameEngine.LivingCells.ToList();
+            
+            for (int i = 0; i < livingCellsList.Count; i++)
             {
-                graphics.FillRectangle(Brushes.Aqua, foo[i].Row * cellSize, foo[i].Column * cellSize, cellSize, cellSize);
+                graphics.FillRectangle(Brushes.Aqua, livingCellsList[i].Row * cellSize, livingCellsList[i].Column * cellSize, cellSize, cellSize);
             }
             return bitmap;
+        }
+
+        private void StartGameButton_Click(object sender, EventArgs e)
+        {
+            GameEngine.SetGridSize(GetGridHeight(), GetGridWidth());
+            GameEngine.SetLivingCells(GetInitialStateOfGrid());
+
+            var generation = 1;
+
+            while(true){
+                SetGenerationNumber(generation);
+                SetNumberOfLivingCells(GameEngine.LivingCells.Count());
+                RenderGrid();
+                GameEngine.StartGame();
+            
+                generation++;
+                Thread.Sleep(100);
+             }
         }
 
         public void RenderTitle()
@@ -70,38 +95,20 @@ namespace ConwaysGameOfLifeGUI
             GenerationNumber.Text = generation.ToString();
         }
 
-        public void SetGrid(Grid grid)
-        {
-            Grid = grid;
-        }
-
         public void SetNumberOfLivingCells(int noOflivingCells)
         {
             NoOfLivingCells.Text = noOflivingCells.ToString();
         }
 
-        public int GetGridDimension(string dimension)
+
+        private void WidthBox_ValueChanged(object sender, EventArgs e)
         {
-            var dimensionBox = dimension == "width" ? WidthBox : HeightBox;
-            return (int)dimensionBox.Value;
+            this.GridBox.Width = (int) WidthBox.Value;
         }
 
-        public void SetTitle(string title)
+        private void HeightBox_ValueChanged(object sender, EventArgs e)
         {
-            Title = title;
+            this.GridBox.Height = (int)HeightBox.Value;
         }
-
-        private void widthButton_Click(object sender, EventArgs e)
-        {
-            SetGridWidth((int) this.WidthBox.Value);
-            WidthButton.Enabled = false;
-        }
-
-        private void HeightButton_Click(object sender, EventArgs e)
-        {
-            SetGridHeight((int) this.HeightBox.Value);
-            HeightButton.Enabled = false;
-        }
-
     }
 }

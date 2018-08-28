@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ConwaysGameOfLifeGUI
 {
-    class GameOfLife
+    public class GameOfLife
     {
         private Grid Grid;
         public IEnumerable<Cell> LivingCells => Grid.GetLivingCells();

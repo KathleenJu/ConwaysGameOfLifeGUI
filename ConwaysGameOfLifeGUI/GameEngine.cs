@@ -7,19 +7,40 @@ using System.Threading.Tasks;
 
 namespace ConwaysGameOfLifeGUI
 {
-    class GameEngine
+    public class GameEngine
     {
         private readonly GameOfLife GameOfLife;
-        private readonly IRenderer Renderer;
+        public IEnumerable<Cell> LivingCells => GameOfLife.LivingCells; 
 
         public GameEngine(GameOfLife gameOfLife)
         {
             GameOfLife = gameOfLife;
-            Renderer = renderer;
         }
 
         public void StartGame()
         {
+            GameOfLife.Evolve();
+            
+        }
+
+        public void Next()
+        {
+            GameOfLife.Evolve();
+        }
+
+        public void Stop()
+        {
+
+        }
+
+        public void SetLivingCells(List<Cell> initialCells)
+        {
+            GameOfLife.SetInitialStateOfGrid(initialCells);
+        }
+
+        public void SetGridSize( int height, int width)
+        {
+            GameOfLife.SetGridSize (height, width);
         }
     }
 }

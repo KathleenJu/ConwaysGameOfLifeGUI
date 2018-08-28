@@ -17,13 +17,13 @@ namespace ConwaysGameOfLifeGUI
            
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            
+
             var gameOfLife = new GameOfLife();
-            var renderer = new GUIRenderer();
             var gameEngine = new GameEngine(gameOfLife);
+            var renderer = new GUIRenderer(gameEngine);
 
             Application.Run(renderer);
-            gameEngine.StartGame();
+           
         }
     }
 }
