@@ -21,21 +21,13 @@ namespace ConwaysGameOfLifeGUI
         public GUIRenderer()
         {
             InitializeComponent();
-            SetGrid(new Grid(100, 100));
+            //SetGrid(new Grid(1000, 1000));
             RenderGrid();
-        }
-
-       
-
-        public int GetGridDimension(string dimension)
-        {
-            var dimensionBox = dimension == "width" ? WidthBox : HeightBox;
-            return (int) dimensionBox.Value;
         }
 
         public List<Cell> GetInitialStateOfGrid()
         {
-            return new List<Cell> { new Cell(0, 0) };
+            return new List<Cell> { new Cell(0, 0), new Cell(1,1), new Cell(2,2) };
         }
 
         public void SetGridWidth(int width)
@@ -59,8 +51,8 @@ namespace ConwaysGameOfLifeGUI
             var bitmap = new Bitmap(this.GridBox.Width, this.GridBox.Height);
             var graphics = Graphics.FromImage(bitmap);
             var cellSize = 10;
-            //var foo = Grid.GetLivingCells().ToList();
-            var foo = new List<Cell> {new Cell(0, 0), new Cell(1, 1), new Cell(2, 2)};
+            //var livingCellsList = Grid.GetLivingCells().ToList();
+            var foo = new List<Cell> {new Cell(0, 0), new Cell(1, 1), new Cell(2, 2), new Cell(3,2), new Cell(5,4), new Cell(1,4)};
             for (int i = 0; i < foo.Count; i++)
             {
                 graphics.FillRectangle(Brushes.Aqua, foo[i].Row * cellSize, foo[i].Column * cellSize, cellSize, cellSize);
@@ -86,6 +78,12 @@ namespace ConwaysGameOfLifeGUI
         public void SetNumberOfLivingCells(int noOflivingCells)
         {
             NoOfLivingCells.Text = noOflivingCells.ToString();
+        }
+
+        public int GetGridDimension(string dimension)
+        {
+            var dimensionBox = dimension == "width" ? WidthBox : HeightBox;
+            return (int)dimensionBox.Value;
         }
 
         public void SetTitle(string title)
