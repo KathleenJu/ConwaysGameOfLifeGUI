@@ -20,7 +20,6 @@ namespace ConwaysGameOfLifeGUI
         public void Evolve()
         {
             GameOfLife.Evolve();
-            
         }
 
         public void SetLivingCells(List<Cell> initialCells)
@@ -30,7 +29,7 @@ namespace ConwaysGameOfLifeGUI
 
         public void SetGridSize( int height, int width)
         {
-            GameOfLife.SetGridSize (height, width);
+            GameOfLife.SetGridSize(height, width);
         }
     }
 }
