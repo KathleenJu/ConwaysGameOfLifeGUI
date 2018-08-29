@@ -42,6 +42,7 @@ namespace ConwaysGameOfLifeGUI
             this.NoOfLivingCells = new System.Windows.Forms.Label();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.StartGameButton = new System.Windows.Forms.Button();
+            this.ShowGrid = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.GridBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.WidthBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.HeightBox)).BeginInit();
@@ -59,6 +60,7 @@ namespace ConwaysGameOfLifeGUI
             this.GridBox.Size = new System.Drawing.Size(1000, 800);
             this.GridBox.TabIndex = 1;
             this.GridBox.TabStop = false;
+            this.GridBox.MouseClick += new System.Windows.Forms.MouseEventHandler(this.GridBox_Click);
             // 
             // label1
             // 
@@ -193,6 +195,7 @@ namespace ConwaysGameOfLifeGUI
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.CausesValidation = false;
+            this.splitContainer1.Panel2.Controls.Add(this.ShowGrid);
             this.splitContainer1.Panel2.Controls.Add(this.NoOfLivingCells);
             this.splitContainer1.Panel2.Controls.Add(this.HeightBox);
             this.splitContainer1.Panel2.Controls.Add(this.StartGameButton);
@@ -205,19 +208,30 @@ namespace ConwaysGameOfLifeGUI
             // StartGameButton
             // 
             this.StartGameButton.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.StartGameButton.Location = new System.Drawing.Point(412, 35);
+            this.StartGameButton.Location = new System.Drawing.Point(424, 74);
             this.StartGameButton.Name = "StartGameButton";
-            this.StartGameButton.Size = new System.Drawing.Size(172, 65);
+            this.StartGameButton.Size = new System.Drawing.Size(172, 39);
             this.StartGameButton.TabIndex = 13;
             this.StartGameButton.Text = "Start Game";
             this.StartGameButton.UseVisualStyleBackColor = false;
             this.StartGameButton.Click += new System.EventHandler(this.StartGameButton_Click);
             // 
+            // ShowGrid
+            // 
+            this.ShowGrid.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.ShowGrid.Location = new System.Drawing.Point(424, 30);
+            this.ShowGrid.Name = "ShowGrid";
+            this.ShowGrid.Size = new System.Drawing.Size(172, 38);
+            this.ShowGrid.TabIndex = 14;
+            this.ShowGrid.Text = "Show Grid";
+            this.ShowGrid.UseVisualStyleBackColor = false;
+            this.ShowGrid.Click += new System.EventHandler(this.ShowGrid_Click);
+            // 
             // GUIRenderer
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.ClientSize = new System.Drawing.Size(974, 929);
+            this.ClientSize = new System.Drawing.Size(1004, 937);
             this.Controls.Add(this.GridBox);
             this.Controls.Add(this.splitContainer1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -250,6 +264,7 @@ namespace ConwaysGameOfLifeGUI
         private Label NoOfLivingCells;
         private SplitContainer splitContainer1;
         private Button StartGameButton;
+        private Button ShowGrid;
     }
 }
 

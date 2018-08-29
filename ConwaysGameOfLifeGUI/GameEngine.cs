@@ -17,20 +17,10 @@ namespace ConwaysGameOfLifeGUI
             GameOfLife = gameOfLife;
         }
 
-        public void StartGame()
+        public void Evolve()
         {
             GameOfLife.Evolve();
             
-        }
-
-        public void Next()
-        {
-            GameOfLife.Evolve();
-        }
-
-        public void Stop()
-        {
-
         }
 
         public void SetLivingCells(List<Cell> initialCells)
