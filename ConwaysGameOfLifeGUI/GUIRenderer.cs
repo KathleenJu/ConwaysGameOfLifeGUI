@@ -18,7 +18,7 @@ namespace ConwaysGameOfLifeGUI
         private const int cellSize = 10;
         private GameEngine GameEngine;
         private List<Cell> InitialCells = new List<Cell>();
-        private int cellSize = cellSize;
+        
 
         public GUIRenderer(GameEngine gameEngine)
         {
@@ -46,15 +46,15 @@ namespace ConwaysGameOfLifeGUI
             var row = (int)Math.Round(e.X / 10.0) * cellSize;
             var column = (int)Math.Round(e.Y / 10.0) * cellSize;
             InitialCells.Add(new Cell(row / cellSize, column / cellSize));
-            RenderGrid(InitialCells);
+            Render(DrawLivingCells(InitialCells));
         }
 
         private void ShowGrid_Click(object sender, EventArgs e)
         {
-            DrawGridLines();
+            Render(DrawGridLines());
         }
 
-        public void DrawGridLines()
+        public Bitmap DrawGridLines()
         {
             var bitmap = new Bitmap(this.GridBox.Width, this.GridBox.Height);
             var graphics = Graphics.FromImage(bitmap);
@@ -64,17 +64,17 @@ namespace ConwaysGameOfLifeGUI
             }
             for (int y = 0; y < GridBox.Height / cellSize; y++)
             {
-                graphics.DrawLine(new Pen(Color.Gray), 0, y * cellSize, GridBox.Width / cellSize * cellSize, y * cellSize);
+                graphics.DrawLine(new Pen(Color.Gray), 0, y * cellSize, GridBox.Width / cellSize * cellSize,
+                    y * cellSize);
 
             }
-            this.GridBox.Image = bitmap;
-            this.GridBox.Refresh();
+            return bitmap;
         }
 
         private void ClearGridButton_Click(object sender, EventArgs e)
         {
             InitialCells.Clear();
-            RenderGrid(InitialCells);
+            Render(new Bitmap(0,0));
         }
 
         private void StartGameButton_Click(object sender, EventArgs e)
@@ -88,22 +88,13 @@ namespace ConwaysGameOfLifeGUI
             {
                 SetGenerationNumber(generation);
                 SetNumberOfLivingCells(numberOfLivingCells);
-                RenderGrid(GameEngine.LivingCells);
+                Render(DrawLivingCells(GameEngine.LivingCells));
                 GameEngine.Evolve();
 
                 generation += 1;
                 numberOfLivingCells = GameEngine.LivingCells.Count();
                 Thread.Sleep(500);
             }
-        }
-
-        public List<Cell> GetInitialStateOfGrid()
-        {
-            return new List<Cell>
-            {
-                new Cell(4,4), new Cell(5,4),new Cell(6,4),new Cell(3,5),new Cell(7,5), new Cell(2,6),new Cell(8,6), new Cell(1,8), new Cell(9,8),
-                new Cell(4,13), new Cell(5,13),new Cell(6,13),new Cell(3,12),new Cell(7,12), new Cell(2,11),new Cell(8,11), new Cell(1,9), new Cell(9,9)
-            };
         }
 
         public int GetGridWidth()
@@ -116,18 +107,16 @@ namespace ConwaysGameOfLifeGUI
             return (int)HeightBox.Value;
         }
 
-        public void RenderGrid(IEnumerable<Cell> cells)
+        public void Render(Bitmap bitmap)
         {
-            this.GridBox.Image = this.Draw(cells);
+            this.GridBox.Image = bitmap;
             this.GridBox.Refresh();
         }
 
-        public Bitmap Draw(IEnumerable<Cell> cells)
+        public Bitmap DrawLivingCells(IEnumerable<Cell> cells)
         {
             var bitmap = new Bitmap(this.GridBox.Width, this.GridBox.Height);
             var graphics = Graphics.FromImage(bitmap);
-            
-            
             for (int i = 0; i < cells.Count(); i++)
             {
                 graphics.FillRectangle(Brushes.Aqua, cells.ElementAt(i).Row * cellSize, cells.ElementAt(i).Column * cellSize, cellSize, cellSize);
