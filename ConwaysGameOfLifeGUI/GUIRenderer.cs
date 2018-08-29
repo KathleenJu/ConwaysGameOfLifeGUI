@@ -15,37 +15,86 @@ namespace ConwaysGameOfLifeGUI
 {
     public partial class GUIRenderer : Form
     {
-        
+        private const int cellSize = 10;
         private GameEngine GameEngine;
         private List<Cell> InitialCells = new List<Cell>();
+        private int cellSize = cellSize;
 
         public GUIRenderer(GameEngine gameEngine)
         {
             InitializeComponent();
             RenderTitle();
             GameEngine = gameEngine;
-            
+        }
+
+        public void RenderTitle()
+        {
+            this.Text = "Conway's Game Of Life";
+        }
+        private void WidthBox_ValueChanged(object sender, EventArgs e)
+        {
+            this.GridBox.Width = (int)WidthBox.Value;
+        }
+
+        private void HeightBox_ValueChanged(object sender, EventArgs e)
+        {
+            this.GridBox.Height = (int)HeightBox.Value;
+        }
+
+        private void GridBox_Click(object sender, MouseEventArgs e)
+        {
+            var row = (int)Math.Round(e.X / 10.0) * cellSize;
+            var column = (int)Math.Round(e.Y / 10.0) * cellSize;
+            InitialCells.Add(new Cell(row / cellSize, column / cellSize));
+            RenderGrid(InitialCells);
+        }
+
+        private void ShowGrid_Click(object sender, EventArgs e)
+        {
+            DrawGridLines();
         }
 
         public void DrawGridLines()
         {
-         
             var bitmap = new Bitmap(this.GridBox.Width, this.GridBox.Height);
             var graphics = Graphics.FromImage(bitmap);
-            for (int y = 0; y < GridBox.Width/10; ++y)
+            for (int x = 0; x < GridBox.Width / cellSize; x++)
             {
-                graphics.DrawLine(new Pen(Color.Gray), y * 10, 0, y * 10, GridBox.Height / 10 * 10);
+                graphics.DrawLine(new Pen(Color.Gray), x * cellSize, 0, x * cellSize, GridBox.Height / cellSize * cellSize);
             }
-
-            for (int x = 0; x < GridBox.Height / 10; ++x)
+            for (int y = 0; y < GridBox.Height / cellSize; y++)
             {
-                graphics.DrawLine(new Pen(Color.Gray), 0, x * 10, GridBox.Width / 10 * 10, x * 10);
-                
-                
-            }
+                graphics.DrawLine(new Pen(Color.Gray), 0, y * cellSize, GridBox.Width / cellSize * cellSize, y * cellSize);
 
+            }
             this.GridBox.Image = bitmap;
             this.GridBox.Refresh();
+        }
+
+        private void ClearGridButton_Click(object sender, EventArgs e)
+        {
+            InitialCells.Clear();
+            RenderGrid(InitialCells);
+        }
+
+        private void StartGameButton_Click(object sender, EventArgs e)
+        {
+            GameEngine.SetGridSize(GetGridHeight(), GetGridWidth());
+            GameEngine.SetLivingCells(InitialCells);
+            StartGameButton.Enabled = false;
+            var generation = 1;
+            var numberOfLivingCells = GameEngine.LivingCells.Count();
+            while (true)
+            {
+                SetGenerationNumber(generation);
+                SetNumberOfLivingCells(numberOfLivingCells);
+                RenderGrid(GameEngine.LivingCells);
+                GameEngine.Evolve();
+
+                generation += 1;
+                numberOfLivingCells = GameEngine.LivingCells.Count();
+                Thread.Sleep(500);
+            }
         }
 
         public List<Cell> GetInitialStateOfGrid()
@@ -77,39 +126,14 @@ namespace ConwaysGameOfLifeGUI
         {
             var bitmap = new Bitmap(this.GridBox.Width, this.GridBox.Height);
             var graphics = Graphics.FromImage(bitmap);
-            var cellSize = 10;
+            
             
             for (int i = 0; i < cells.Count(); i++)
             {
-                graphics.FillRectangle(Brushes.Aqua, cells.ToList()[i].Row * cellSize, cells.ToList()[i].Column * cellSize, cellSize, cellSize);
+                graphics.FillRectangle(Brushes.Aqua, cells.ElementAt(i).Row * cellSize, cells.ElementAt(i).Column * cellSize, cellSize, cellSize);
             }
             return bitmap;
-        }
-
-        private void StartGameButton_Click(object sender, EventArgs e)
-        {
-            GameEngine.SetGridSize(GetGridHeight(), GetGridWidth());
-            GameEngine.SetLivingCells(InitialCells);
-            StartGameButton.Enabled = false;
-            var generation = 1;
-            var numberOfLivingCells = GameEngine.LivingCells.Count();
-            while (true){
-                SetGenerationNumber(generation);
-                SetNumberOfLivingCells(numberOfLivingCells);
-                RenderGrid(GameEngine.LivingCells);
-                GameEngine.Evolve();
-            
-                generation += 1;
-                numberOfLivingCells = GameEngine.LivingCells.Count();
-                Thread.Sleep(500);
-             }
-        }
-
-        public void RenderTitle()
-        {
-            this.Text = "Conway's Game Of Life";
-            //this.Refresh();
-        }
+        }   
 
         public void SetGenerationNumber(int generation)
         {
@@ -124,36 +148,6 @@ namespace ConwaysGameOfLifeGUI
         }
 
 
-        private void WidthBox_ValueChanged(object sender, EventArgs e)
-        {
-            this.GridBox.Width = (int) WidthBox.Value;
-        }
-
-        private void HeightBox_ValueChanged(object sender, EventArgs e)
-        {
-            this.GridBox.Height = (int)HeightBox.Value;
-        }
-
-        private void GridBox_Click(object sender, MouseEventArgs e)
-        {
-            if (GridBox.Image == null)
-            {
-                GridBox.Image = new Bitmap(this.GridBox.Width,
-                    this.GridBox.Height);
-            }
-            using (Graphics g = Graphics.FromImage(GridBox.Image))
-            { 
-                var row = (int) Math.Round(e.X/ 10.0) * 10;
-                var column = (int) Math.Round( e.Y / 10.0) * 10;
-                InitialCells.Add(new Cell(row/10, column/10));
-                RenderGrid(InitialCells);
-            }
-            GridBox.Invalidate();
-        }
-
-        private void ShowGrid_Click(object sender, EventArgs e)
-        {
-            DrawGridLines();
-        }
+        
     }
 }

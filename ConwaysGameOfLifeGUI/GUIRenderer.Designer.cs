@@ -41,8 +41,9 @@ namespace ConwaysGameOfLifeGUI
             this.GenerationNumber = new System.Windows.Forms.Label();
             this.NoOfLivingCells = new System.Windows.Forms.Label();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.StartGameButton = new System.Windows.Forms.Button();
+            this.ClearGridButton = new System.Windows.Forms.Button();
             this.ShowGrid = new System.Windows.Forms.Button();
+            this.StartGameButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.GridBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.WidthBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.HeightBox)).BeginInit();
@@ -195,6 +196,7 @@ namespace ConwaysGameOfLifeGUI
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.CausesValidation = false;
+            this.splitContainer1.Panel2.Controls.Add(this.ClearGridButton);
             this.splitContainer1.Panel2.Controls.Add(this.ShowGrid);
             this.splitContainer1.Panel2.Controls.Add(this.NoOfLivingCells);
             this.splitContainer1.Panel2.Controls.Add(this.HeightBox);
@@ -205,27 +207,38 @@ namespace ConwaysGameOfLifeGUI
             this.splitContainer1.SplitterDistance = 359;
             this.splitContainer1.TabIndex = 13;
             // 
-            // StartGameButton
+            // ClearGridButton
             // 
-            this.StartGameButton.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.StartGameButton.Location = new System.Drawing.Point(424, 74);
-            this.StartGameButton.Name = "StartGameButton";
-            this.StartGameButton.Size = new System.Drawing.Size(172, 39);
-            this.StartGameButton.TabIndex = 13;
-            this.StartGameButton.Text = "Start Game";
-            this.StartGameButton.UseVisualStyleBackColor = false;
-            this.StartGameButton.Click += new System.EventHandler(this.StartGameButton_Click);
+            this.ClearGridButton.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.ClearGridButton.Location = new System.Drawing.Point(424, 42);
+            this.ClearGridButton.Name = "ClearGridButton";
+            this.ClearGridButton.Size = new System.Drawing.Size(184, 38);
+            this.ClearGridButton.TabIndex = 15;
+            this.ClearGridButton.Text = "Clear Grid";
+            this.ClearGridButton.UseVisualStyleBackColor = false;
+            this.ClearGridButton.Click += new System.EventHandler(this.ClearGridButton_Click);
             // 
             // ShowGrid
             // 
             this.ShowGrid.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.ShowGrid.Location = new System.Drawing.Point(424, 30);
+            this.ShowGrid.Location = new System.Drawing.Point(424, 3);
             this.ShowGrid.Name = "ShowGrid";
-            this.ShowGrid.Size = new System.Drawing.Size(172, 38);
+            this.ShowGrid.Size = new System.Drawing.Size(184, 38);
             this.ShowGrid.TabIndex = 14;
-            this.ShowGrid.Text = "Show Grid";
+            this.ShowGrid.Text = "Show Grid Lines";
             this.ShowGrid.UseVisualStyleBackColor = false;
             this.ShowGrid.Click += new System.EventHandler(this.ShowGrid_Click);
+            // 
+            // StartGameButton
+            // 
+            this.StartGameButton.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.StartGameButton.Location = new System.Drawing.Point(424, 83);
+            this.StartGameButton.Name = "StartGameButton";
+            this.StartGameButton.Size = new System.Drawing.Size(184, 39);
+            this.StartGameButton.TabIndex = 13;
+            this.StartGameButton.Text = "Start Game";
+            this.StartGameButton.UseVisualStyleBackColor = false;
+            this.StartGameButton.Click += new System.EventHandler(this.StartGameButton_Click);
             // 
             // GUIRenderer
             // 
@@ -238,7 +251,7 @@ namespace ConwaysGameOfLifeGUI
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "GUIRenderer";
-            this.Text = "Conway\'s Game Of Life";
+            this.Text = "/";
             ((System.ComponentModel.ISupportInitialize)(this.GridBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.WidthBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.HeightBox)).EndInit();
@@ -265,6 +278,7 @@ namespace ConwaysGameOfLifeGUI
         private SplitContainer splitContainer1;
         private Button StartGameButton;
         private Button ShowGrid;
+        private Button ClearGridButton;
     }
 }
 
