@@ -45,6 +45,11 @@ namespace ConwaysGameOfLifeGUI
         {
             var row = (int)Math.Round(e.X / 10.0) * cellSize;
             var column = (int)Math.Round(e.Y / 10.0) * cellSize;
+            UpdateGrid(row, column);
+        }
+
+        private void UpdateGrid(int row, int column)
+        {
             InitialCells.Add(new Cell(row / cellSize, column / cellSize));
             SetNumberOfLivingCells(InitialCells.Count);
             Render(DrawLivingCells(InitialCells));
