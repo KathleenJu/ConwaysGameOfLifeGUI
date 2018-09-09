@@ -42,7 +42,6 @@ namespace ConwaysGameOfLifeGUI
             this.NoOfLivingCells = new System.Windows.Forms.Label();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.ClearGridButton = new System.Windows.Forms.Button();
-            this.ShowGrid = new System.Windows.Forms.Button();
             this.StartGameButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.GridBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.WidthBox)).BeginInit();
@@ -198,7 +197,6 @@ namespace ConwaysGameOfLifeGUI
             // 
             this.splitContainer1.Panel2.CausesValidation = false;
             this.splitContainer1.Panel2.Controls.Add(this.ClearGridButton);
-            this.splitContainer1.Panel2.Controls.Add(this.ShowGrid);
             this.splitContainer1.Panel2.Controls.Add(this.NoOfLivingCells);
             this.splitContainer1.Panel2.Controls.Add(this.HeightBox);
             this.splitContainer1.Panel2.Controls.Add(this.StartGameButton);
@@ -211,7 +209,7 @@ namespace ConwaysGameOfLifeGUI
             // ClearGridButton
             // 
             this.ClearGridButton.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.ClearGridButton.Location = new System.Drawing.Point(424, 42);
+            this.ClearGridButton.Location = new System.Drawing.Point(424, 20);
             this.ClearGridButton.Name = "ClearGridButton";
             this.ClearGridButton.Size = new System.Drawing.Size(184, 38);
             this.ClearGridButton.TabIndex = 15;
@@ -219,21 +217,10 @@ namespace ConwaysGameOfLifeGUI
             this.ClearGridButton.UseVisualStyleBackColor = false;
             this.ClearGridButton.Click += new System.EventHandler(this.ClearGridButton_Click);
             // 
-            // ShowGrid
-            // 
-            this.ShowGrid.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.ShowGrid.Location = new System.Drawing.Point(424, 3);
-            this.ShowGrid.Name = "ShowGrid";
-            this.ShowGrid.Size = new System.Drawing.Size(184, 38);
-            this.ShowGrid.TabIndex = 14;
-            this.ShowGrid.Text = "Show Grid Lines";
-            this.ShowGrid.UseVisualStyleBackColor = false;
-            this.ShowGrid.Click += new System.EventHandler(this.ShowGrid_Click);
-            // 
             // StartGameButton
             // 
             this.StartGameButton.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.StartGameButton.Location = new System.Drawing.Point(424, 83);
+            this.StartGameButton.Location = new System.Drawing.Point(424, 74);
             this.StartGameButton.Name = "StartGameButton";
             this.StartGameButton.Size = new System.Drawing.Size(184, 39);
             this.StartGameButton.TabIndex = 13;
@@ -278,7 +265,6 @@ namespace ConwaysGameOfLifeGUI
         private Label NoOfLivingCells;
         private SplitContainer splitContainer1;
         private Button StartGameButton;
-        private Button ShowGrid;
         private Button ClearGridButton;
     }
 }

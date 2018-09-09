@@ -55,27 +55,6 @@ namespace ConwaysGameOfLifeGUI
             Render(DrawLivingCells(InitialCells));
         }
 
-        private void ShowGrid_Click(object sender, EventArgs e)
-        {
-            Render(DrawGridLines());
-        }
-
-        public Bitmap DrawGridLines()
-        {
-            var bitmap = new Bitmap(this.GridBox.Width, this.GridBox.Height);
-            var graphics = Graphics.FromImage(bitmap);
-            for (int x = 0; x < GridBox.Width / cellSize; x++)
-            {
-                graphics.DrawLine(new Pen(Color.Gray), x * cellSize, 0, x * cellSize, GridBox.Height / cellSize * cellSize);
-            }
-            for (int y = 0; y < GridBox.Height / cellSize; y++)
-            {
-                graphics.DrawLine(new Pen(Color.Gray), 0, y * cellSize, GridBox.Width / cellSize * cellSize,
-                    y * cellSize);
-            }
-            return bitmap;
-        }
-
         private void ClearGridButton_Click(object sender, EventArgs e)
         {
             InitialCells.Clear();
