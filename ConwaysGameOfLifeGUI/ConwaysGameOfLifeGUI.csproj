@@ -47,7 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Cell.cs" />
-    <Compile Include="DeadEvolutionRules.cs" />
+    <Compile Include="EvolutionRules\DeadEvolutionRules.cs" />
     <Compile Include="GUIRenderer.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -57,7 +57,7 @@
     <Compile Include="GameEngine.cs" />
     <Compile Include="GameOfLife.cs" />
     <Compile Include="Grid.cs" />
-    <Compile Include="LiveEvolutionRules.cs" />
+    <Compile Include="EvolutionRules\LiveEvolutionRules.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="GUIRenderer.resx">

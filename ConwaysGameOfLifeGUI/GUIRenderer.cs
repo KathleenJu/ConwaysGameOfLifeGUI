@@ -142,7 +142,9 @@ namespace ConwaysGameOfLifeGUI
             this.NoOfLivingCells.Refresh();
         }
 
+        private void GridBox_Click(object sender, EventArgs e)
+        {
 
-        
+        }
     }
 }

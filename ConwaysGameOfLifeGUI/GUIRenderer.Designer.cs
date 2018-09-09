@@ -61,6 +61,7 @@ namespace ConwaysGameOfLifeGUI
             this.GridBox.Size = new System.Drawing.Size(1000, 800);
             this.GridBox.TabIndex = 1;
             this.GridBox.TabStop = false;
+            this.GridBox.Click += new System.EventHandler(this.GridBox_Click);
             this.GridBox.MouseClick += new System.Windows.Forms.MouseEventHandler(this.GridBox_Click);
             // 
             // label1
