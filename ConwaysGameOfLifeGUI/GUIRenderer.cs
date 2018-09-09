@@ -1,14 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Drawing.Drawing2D;
-using System.Drawing.Imaging;
 using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ConwaysGameOfLifeGUI
@@ -29,16 +23,16 @@ namespace ConwaysGameOfLifeGUI
 
         public void RenderTitle()
         {
-            this.Text = "Conway's Game Of Life";
+            Text = "Conway's Game Of Life";
         }
         private void WidthBox_ValueChanged(object sender, EventArgs e)
         {
-            this.GridBox.Width = (int)WidthBox.Value;
+            GridBox.Width = (int)WidthBox.Value;
         }
 
         private void HeightBox_ValueChanged(object sender, EventArgs e)
         {
-            this.GridBox.Height = (int)HeightBox.Value;
+            GridBox.Height = (int)HeightBox.Value;
         }
 
         private void GridBox_Click(object sender, MouseEventArgs e)
@@ -94,8 +88,8 @@ namespace ConwaysGameOfLifeGUI
 
         public void Render(Bitmap bitmap)
         {
-            this.GridBox.Image = bitmap;
-            this.GridBox.Refresh();
+            GridBox.Image = bitmap;
+            GridBox.Refresh();
         }
 
         public Bitmap DrawLivingCells(IEnumerable<Cell> livingCells)
@@ -111,14 +105,14 @@ namespace ConwaysGameOfLifeGUI
 
         public void SetGenerationNumber(int generation)
         {
-            this.GenerationNumber.Text = generation.ToString();
-            this.GenerationNumber.Refresh();
+            GenerationNumber.Text = generation.ToString();
+            GenerationNumber.Refresh();
         }
 
         public void SetNumberOfLivingCells(int noOfLivingCells)
         {
-            this.NoOfLivingCells.Text = noOfLivingCells.ToString();
-            this.NoOfLivingCells.Refresh();
+            NoOfLivingCells.Text = noOfLivingCells.ToString();
+            NoOfLivingCells.Refresh();
         }       
     }
 }

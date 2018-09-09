@@ -19,7 +19,6 @@ namespace ConwaysGameOfLifeGUI
             LiveEvolutionRules = new LiveEvolutionRules();
         }
 
-
         public void Evolve()
         {
             var allDeadNeighboursOfLiveCell = new List<IEnumerable<Cell>>();
