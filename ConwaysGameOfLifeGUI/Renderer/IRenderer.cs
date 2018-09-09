@@ -6,7 +6,13 @@ using System.Threading.Tasks;
 
 namespace ConwaysGameOfLifeGUI
 {
-    interface Interface1
+    interface IRenderer
     {
+        void RenderTitle(string title);
+        int GetGridWidth();
+        int GetGridHeight();
+        void SetGenerationNumber(int generation);
+        void SetNumberOfLivingCells(int noOfLivingCells);
+        void StartGame();
     }
 }
