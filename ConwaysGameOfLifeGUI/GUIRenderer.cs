@@ -16,15 +16,15 @@ namespace ConwaysGameOfLifeGUI
     public partial class GUIRenderer : Form
     {
         private const int cellSize = 10;
-        private GameEngine GameEngine;
+        private GameOfLife GameOfLife;
         private List<Cell> InitialCells = new List<Cell>();
         
 
-        public GUIRenderer(GameEngine gameEngine)
+        public GUIRenderer(GameOfLife gameOfLife)
         {
             InitializeComponent();
             RenderTitle();
-            GameEngine = gameEngine;
+            GameOfLife = gameOfLife;
         }
 
         public void RenderTitle()
@@ -64,20 +64,20 @@ namespace ConwaysGameOfLifeGUI
 
         private void StartGameButton_Click(object sender, EventArgs e)
         {
-            GameEngine.SetGridSize(GetGridHeight(), GetGridWidth());
-            GameEngine.SetLivingCells(InitialCells);
+            GameOfLife.SetGridSize(GetGridHeight(), GetGridWidth());
+            GameOfLife.SetInitialStateOfGrid(InitialCells);
             StartGameButton.Enabled = false;
             var generation = 1;
-            var numberOfLivingCells = GameEngine.LivingCells.Count();
+            var numberOfLivingCells = GameOfLife.LivingCells.Count();
             while (true)
             {
                 SetGenerationNumber(generation);
                 SetNumberOfLivingCells(numberOfLivingCells);
-                Render(DrawLivingCells(GameEngine.LivingCells));
-                GameEngine.Evolve();
+                Render(DrawLivingCells(GameOfLife.LivingCells));
+                GameOfLife.Evolve();
 
                 generation += 1;
-                numberOfLivingCells = GameEngine.LivingCells.Count();
+                numberOfLivingCells = GameOfLife.LivingCells.Count();
                 Thread.Sleep(500);
             }
         }
@@ -119,11 +119,6 @@ namespace ConwaysGameOfLifeGUI
         {
             this.NoOfLivingCells.Text = noOfLivingCells.ToString();
             this.NoOfLivingCells.Refresh();
-        }
-
-        private void GridBox_Click(object sender, EventArgs e)
-        {
-
-        }
+        }       
     }
 }
