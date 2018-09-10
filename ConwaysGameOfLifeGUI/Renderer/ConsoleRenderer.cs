@@ -2,7 +2,7 @@
 
 namespace ConwaysGameOfLifeGUI.Renderer
 {
-    public class ConsoleRenderer: IRenderer
+    public class ConsoleRenderer
     {
         private string _title;
         private int _generationNumber;

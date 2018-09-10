@@ -13,6 +13,8 @@ namespace ConwaysGameOfLifeGUI
         private int _numberOfLivingCells;
         private readonly GameOfLife _gameOfLife;
 
+        public IEnumerable<Cell> LivingCells => _gameOfLife.LivingCells;
+
         public GameEngine(GameOfLife gameOfLife)
         {
             _gameOfLife = gameOfLife;

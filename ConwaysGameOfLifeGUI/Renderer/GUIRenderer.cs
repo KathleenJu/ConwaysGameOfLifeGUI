@@ -12,7 +12,7 @@ namespace ConwaysGameOfLifeGUI.Renderer
     {
         private const int CellSize = 10;
         private readonly GameEngine _gameEngine;
-        private readonly List<Cell> _initialCells;
+        private List<Cell> _initialCells;
         
 
         public GuiRenderer(GameEngine gameEngine)
@@ -34,14 +34,13 @@ namespace ConwaysGameOfLifeGUI.Renderer
             NoOfLivingCells.Refresh();
         }
 
-        public Bitmap DrawLivingCells(List<Cell> livingCells)
+        public Bitmap DrawLivingCells(IEnumerable<Cell> livingCells)
         {
             var bitmap = new Bitmap(GridBox.Width, GridBox.Height);
             var graphics = Graphics.FromImage(bitmap);
             for (int cellIndex = 0; cellIndex < livingCells.Count(); cellIndex++)
             {
-                graphics.FillRectangle(Brushes.Aqua, livingCells.ElementAt(cellIndex).Row * CellSize,
-                    livingCells.ElementAt(cellIndex).Column * CellSize, CellSize, CellSize);
+                graphics.FillRectangle(Brushes.Aqua, livingCells.ElementAt(cellIndex).Row * CellSize, livingCells.ElementAt(cellIndex).Column * CellSize, CellSize, CellSize);
             }
 
             //graphics.Clear();
@@ -63,7 +62,7 @@ namespace ConwaysGameOfLifeGUI.Renderer
         {
             var row = (int)Math.Round(e.X / 10.0) * CellSize;
             var column = (int)Math.Round(e.Y / 10.0) * CellSize;
-            UpgradeGridBox(new Cell(row, column));
+            UpgradeGridBox(new Cell(row / CellSize, column / CellSize));
         }
 
         private void UpgradeGridBox(Cell cell)
@@ -85,6 +84,7 @@ namespace ConwaysGameOfLifeGUI.Renderer
             _gameEngine.SetGridSize((int)HeightBox.Value, (int)WidthBox.Value);
             _gameEngine.SetInitialStateOfGrid(_initialCells);
             _gameEngine.StartGame();
+            Render(DrawLivingCells(_gameEngine.LivingCells));
             //SetGenerationNumber(_gameEngine.GetGenerationNumber());
             //SetNumberOfLivingCells(_gameEngine.GetNumberOfLivingCells());
         }

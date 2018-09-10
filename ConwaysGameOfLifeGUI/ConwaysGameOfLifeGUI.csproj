@@ -59,7 +59,6 @@
     <Compile Include="GameOfLife.cs" />
     <Compile Include="Grid.cs" />
     <Compile Include="EvolutionRules\LiveEvolutionRules.cs" />
-    <Compile Include="Renderer\IRenderer.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Renderer\GUIRenderer.resx">
