@@ -17,7 +17,8 @@ namespace ConwaysGameOfLifeGUI
             Application.SetCompatibleTextRenderingDefault(false);
 
             var gameOfLife = new GameOfLife();
-            var renderer = new GuiRenderer(gameOfLife);
+            var gameEngine = new GameEngine(gameOfLife);
+            var renderer = new GuiRenderer(gameEngine);
 
             Application.Run(renderer);
            

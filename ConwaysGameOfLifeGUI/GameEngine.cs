@@ -9,61 +9,47 @@ namespace ConwaysGameOfLifeGUI
 {
     public class GameEngine
     {
-        private GameOfLife GameOfLife;
+        private int _generationNumber;
+        private int _numberOfLivingCells;
+        private readonly GameOfLife _gameOfLife;
 
         public GameEngine(GameOfLife gameOfLife)
         {
-            GameOfLife = gameOfLife;
+            _gameOfLife = gameOfLife;
         }
 
         public void StartGame()
         {
-            GameOfLife.SetGridSize(GetGridHeight(), GetGridWidth());
-            GameOfLife.SetInitialStateOfGrid(GetInitialStateOfGrid());
-           
-            var generation = 1;
-            var numberOfLivingCells = GameOfLife.LivingCells.Count();
+            _generationNumber = 1;
+            _numberOfLivingCells = _gameOfLife.LivingCells.Count();
             while (true)
-            {
-                SetGenerationNumber(generation);
-                SetNumberOfLivingCells(numberOfLivingCells);
-                SetGrid(GameOfLife.GetGrid());
-                GameOfLife.Evolve();
-
-                generation += 1;
-                numberOfLivingCells = GameOfLife.LivingCells.Count();
+            {  
+                _gameOfLife.Evolve();
+                _generationNumber += 1;
+                _numberOfLivingCells = _gameOfLife.LivingCells.Count();
                 Thread.Sleep(500);
             }
         }
 
-        private List<Cell> GetInitialStateOfGrid()
+        public void SetGridSize(int height, int width)
         {
-            throw new NotImplementedException();
+            _gameOfLife.SetGridSize(height, width);
         }
 
-        private int GetGridWidth()
+        public void SetInitialStateOfGrid(List<Cell> initialCells)
         {
-            throw new NotImplementedException();
+            _gameOfLife.SetInitialStateOfGrid(initialCells);
         }
 
-        private int GetGridHeight()
+        public int GetGenerationNumber()
         {
-            throw new NotImplementedException();
+            return _generationNumber;
         }
 
-        public void SetGenerationNumber(int generation)
+        public int GetNumberOfLivingCells()
         {
-            
+            return _numberOfLivingCells;
         }
 
-        public void SetNumberOfLivingCells(int noOfLivingCells)
-        {
-
-        }
-
-        public void SetGrid(Grid grid)
-        {
-
-        }
     }
 }

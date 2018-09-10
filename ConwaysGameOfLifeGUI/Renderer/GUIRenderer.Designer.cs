@@ -226,7 +226,7 @@ namespace ConwaysGameOfLifeGUI.Renderer
             this.StartGameButton.UseVisualStyleBackColor = false;
             this.StartGameButton.Click += new System.EventHandler(this.StartGameButton_Click);
             // 
-            // GUIRenderer
+            // GuiRenderer
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
@@ -237,7 +237,7 @@ namespace ConwaysGameOfLifeGUI.Renderer
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "GuiRenderer";
-            this.Text = "/";
+            this.Text = "Conway\'s Game of Life";
             ((System.ComponentModel.ISupportInitialize)(this.GridBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.WidthBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.HeightBox)).EndInit();
