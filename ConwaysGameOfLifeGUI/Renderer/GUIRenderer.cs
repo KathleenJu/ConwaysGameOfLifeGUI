@@ -5,23 +5,24 @@ using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
 
-namespace ConwaysGameOfLifeGUI
+namespace ConwaysGameOfLifeGUI.Renderer
 {
-    public partial class GUIRenderer : Form, IRenderer
+    public partial class GuiRenderer : Form
     {
         private const int CellSize = 10;
         private readonly GameOfLife _gameOfLife;
-        private readonly List<Cell> _initialCells = new List<Cell>();
-        
+        private readonly List<Cell> _initialCells;
+        private Bitmap gridBitmap;
 
-        public GUIRenderer(GameOfLife gameOfLife)
+        public GuiRenderer(GameOfLife gameOfLife)
         {
             InitializeComponent();
-            RenderTitle("Conway's Game Of Life");
+            SetTitle("Conway's Game Of Life");
             _gameOfLife = gameOfLife;
+            _initialCells = new List<Cell>();
         }
 
-        public void RenderTitle(string title)
+        public void SetTitle(string title)
         {
             Text = title;
         }
@@ -29,7 +30,7 @@ namespace ConwaysGameOfLifeGUI
         private void UpdateGrid(int row, int column)
         {
             _initialCells.Add(new Cell(row / CellSize, column / CellSize));
-            SetNumberOfLivingCells(_initialCells.Count);
+            SetNumberOfLivingCells(_initialCells.Count);         
             Render(DrawLivingCells(_initialCells));
         }
 
@@ -55,7 +56,7 @@ namespace ConwaysGameOfLifeGUI
             return (int)HeightBox.Value;
         }
 
-        private void StartGame()
+        public void StartGame()
         {
             _gameOfLife.SetGridSize(GetGridHeight(), GetGridWidth());
             _gameOfLife.SetInitialStateOfGrid(_initialCells);
@@ -66,6 +67,8 @@ namespace ConwaysGameOfLifeGUI
             {
                 SetGenerationNumber(generation);
                 SetNumberOfLivingCells(numberOfLivingCells);
+                //DrawLivingCells(_gameOfLife.GetGrid());
+                //Render(gridBitmap);
                 Render(DrawLivingCells(_gameOfLife.LivingCells));
                 _gameOfLife.Evolve();
 
@@ -74,6 +77,34 @@ namespace ConwaysGameOfLifeGUI
                 Thread.Sleep(500);
             }
         }
+
+        public Bitmap DrawLivingCells(IEnumerable<Cell> livingCells)
+        {
+            var bitmap = new Bitmap(GridBox.Width, GridBox.Height);
+            var graphics = Graphics.FromImage(bitmap);
+            for (int cellIndex = 0; cellIndex < livingCells.Count(); cellIndex++)
+            {
+                graphics.FillRectangle(Brushes.Aqua, livingCells.ElementAt(cellIndex).Row * CellSize, livingCells.ElementAt(cellIndex).Column * CellSize, CellSize, CellSize);
+            }
+
+            //graphics.Clear();
+            //only new the bitmap when start game, setting the grid height and width
+            return bitmap;
+        }
+
+//        public void SetGrid(Grid grid)
+//        {
+//            var bitmap = new Bitmap(GridBox.Width, GridBox.Height);
+//            var graphics = Graphics.FromImage(bitmap);
+//            for (int cellIndex = 0; cellIndex < grid.GetLivingCells().Count(); cellIndex++)
+//            {
+//                graphics.FillRectangle(Brushes.Aqua, grid.GetLivingCells().ElementAt(cellIndex).Row * CellSize, grid.GetLivingCells().ElementAt(cellIndex).Column * CellSize, CellSize, CellSize);
+//            }
+//            
+//            //graphics.Clear();
+//            //only new the bitmap when start game, setting the grid height and width
+//            gridBitmap = bitmap;
+//        }
 
         private void WidthBox_ValueChanged(object sender, EventArgs e)
         {
@@ -96,7 +127,7 @@ namespace ConwaysGameOfLifeGUI
         {
             _initialCells.Clear();
             SetNumberOfLivingCells(_initialCells.Count);
-            Render(new Bitmap(this.GridBox.Width, this.GridBox.Height));
+            Render(new Bitmap(GridBox.Width, GridBox.Height));
         }
 
         private void StartGameButton_Click(object sender, EventArgs e)
@@ -108,17 +139,6 @@ namespace ConwaysGameOfLifeGUI
         {
             GridBox.Image = bitmap;
             GridBox.Refresh();
-        }
-
-        public Bitmap DrawLivingCells(IEnumerable<Cell> livingCells)
-        {
-            var bitmap = new Bitmap(this.GridBox.Width, this.GridBox.Height);
-            var graphics = Graphics.FromImage(bitmap);
-            for (int i = 0; i < livingCells.Count(); i++)
-            {
-                graphics.FillRectangle(Brushes.Aqua, livingCells.ElementAt(i).Row * CellSize, livingCells.ElementAt(i).Column * CellSize, CellSize, CellSize);
-            }
-            return bitmap;
-        }   
+        }    
     }
 }

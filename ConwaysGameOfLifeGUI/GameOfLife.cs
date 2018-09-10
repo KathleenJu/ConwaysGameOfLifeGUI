@@ -1,22 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using ConwaysGameOfLifeGUI.EvolutionRules;
 
 namespace ConwaysGameOfLifeGUI
 {
     public class GameOfLife
     {
         private Grid Grid;
-        private readonly DeadEvolutionRules DeadEvolutionRules;
-        private readonly LiveEvolutionRules LiveEvolutionRules;
+        private readonly DeadEvolutionRules _deadEvolutionRules;
+        private readonly LiveEvolutionRules _liveEvolutionRules;
         public IEnumerable<Cell> LivingCells => Grid.GetLivingCells();
 
         public GameOfLife()
         {
-            DeadEvolutionRules = new DeadEvolutionRules();
-            LiveEvolutionRules = new LiveEvolutionRules();
+            _deadEvolutionRules = new DeadEvolutionRules();
+            _liveEvolutionRules = new LiveEvolutionRules();
         }
 
         public void Evolve()
@@ -30,8 +27,8 @@ namespace ConwaysGameOfLifeGUI
                 allLiveNeighboursOfLiveCell.Add(Grid.GetLiveNeighboursOfLivingCell(cell));
             }
 
-            var cellsThatShouldLive = LiveEvolutionRules.GetDeadCellsThatShouldLive(allDeadNeighboursOfLiveCell);
-            var cellsThatShouldDie = DeadEvolutionRules.GetLiveCellsThatShouldDie(allLiveNeighboursOfLiveCell, LivingCells);
+            var cellsThatShouldLive = _liveEvolutionRules.GetDeadCellsThatShouldLive(allDeadNeighboursOfLiveCell);
+            var cellsThatShouldDie = _deadEvolutionRules.GetLiveCellsThatShouldDie(allLiveNeighboursOfLiveCell, LivingCells);
 
             UpdateGrid(cellsThatShouldLive, cellsThatShouldDie);
         }
@@ -40,6 +37,11 @@ namespace ConwaysGameOfLifeGUI
         {
             cellsThatShouldLive.ForEach(cell => { Grid.AddCell(cell); });
             cellsThatShouldDie.ForEach(cell => { Grid.RemoveCell(cell); });
+        }
+
+        public Grid GetGrid()
+        {
+            return Grid;
         }
 
         public void SetGridSize(int height, int width)

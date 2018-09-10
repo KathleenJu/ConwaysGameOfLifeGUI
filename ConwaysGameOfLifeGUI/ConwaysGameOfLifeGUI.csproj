@@ -48,19 +48,21 @@
   <ItemGroup>
     <Compile Include="Cell.cs" />
     <Compile Include="EvolutionRules\DeadEvolutionRules.cs" />
-    <Compile Include="GUIRenderer.cs">
+    <Compile Include="GameEngine.cs" />
+    <Compile Include="Renderer\ConsoleRenderer.cs" />
+    <Compile Include="Renderer\GUIRenderer.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GUIRenderer.Designer.cs">
+    <Compile Include="Renderer\GUIRenderer.Designer.cs">
       <DependentUpon>GUIRenderer.cs</DependentUpon>
     </Compile>
-    <Compile Include="GameEngine.cs" />
     <Compile Include="GameOfLife.cs" />
     <Compile Include="Grid.cs" />
     <Compile Include="EvolutionRules\LiveEvolutionRules.cs" />
+    <Compile Include="Renderer\IRenderer.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="GUIRenderer.resx">
+    <EmbeddedResource Include="Renderer\GUIRenderer.resx">
       <DependentUpon>GUIRenderer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">

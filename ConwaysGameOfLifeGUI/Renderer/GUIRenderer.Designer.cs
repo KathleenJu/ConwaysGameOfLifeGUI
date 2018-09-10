@@ -1,9 +1,8 @@
-﻿using System.Drawing;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 
-namespace ConwaysGameOfLifeGUI
+namespace ConwaysGameOfLifeGUI.Renderer
 {
-    partial class GUIRenderer
+    partial class GuiRenderer
     {
         /// <summary>
         /// Required designer variable.
@@ -237,7 +236,7 @@ namespace ConwaysGameOfLifeGUI
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "GUIRenderer";
+            this.Name = "GuiRenderer";
             this.Text = "/";
             ((System.ComponentModel.ISupportInitialize)(this.GridBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.WidthBox)).EndInit();

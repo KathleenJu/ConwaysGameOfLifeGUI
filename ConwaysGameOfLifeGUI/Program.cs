@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using ConwaysGameOfLifeGUI.Renderer;
 
 namespace ConwaysGameOfLifeGUI
 {
@@ -19,7 +17,7 @@ namespace ConwaysGameOfLifeGUI
             Application.SetCompatibleTextRenderingDefault(false);
 
             var gameOfLife = new GameOfLife();
-            var renderer = new GUIRenderer(gameOfLife);
+            var renderer = new GuiRenderer(gameOfLife);
 
             Application.Run(renderer);
            
