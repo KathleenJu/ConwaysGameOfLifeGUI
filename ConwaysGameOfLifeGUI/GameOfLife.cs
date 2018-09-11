@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using ConwaysGameOfLifeGUI.EvolutionRules;
 
 namespace ConwaysGameOfLifeGUI
@@ -30,21 +31,15 @@ namespace ConwaysGameOfLifeGUI
 
             var cellsThatShouldLive = _liveEvolutionRules.GetDeadCellsThatShouldLive(allDeadNeighboursOfLiveCell);
             var cellsThatShouldDie = _deadEvolutionRules.GetLiveCellsThatShouldDie(allLiveNeighboursOfLiveCell, LivingCells);
+            var newLivingCells = cellsThatShouldLive.Except(cellsThatShouldDie).ToList();
 
-            UpdateGrid(cellsThatShouldLive, cellsThatShouldDie);
-        }
-        //This method might can only take one parameter. (shuoldLive - shouldDie = nextGenLiving)
-        private void UpdateGrid(List<Cell> cellsThatShouldLive, List<Cell> cellsThatShouldDie)
-        {
-            //Grid.Clean();
-            //Grid.AddCells(list)
-            cellsThatShouldLive.ForEach(cell => { Grid.AddCell(cell); });
-            cellsThatShouldDie.ForEach(cell => { Grid.RemoveCell(cell); });
+            UpdateGrid(newLivingCells, cellsThatShouldDie);
         }
 
-        public Grid GetGrid()
+        private void UpdateGrid(List<Cell> newLivingCells, List<Cell> cellsThatShouldDie)
         {
-            return Grid;
+            Grid.Clear();
+            newLivingCells.ForEach(cell => { Grid.AddCell(cell); });
         }
 
         public void SetGridSize(int height, int width)

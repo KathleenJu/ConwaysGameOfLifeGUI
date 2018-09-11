@@ -34,6 +34,11 @@ namespace ConwaysGameOfLifeGUI
             LivingCells.Remove(cell);
         }
 
+        public void Clear()
+        {
+            LivingCells.Clear();
+        }
+
         public IEnumerable<Cell> GetLiveNeighboursOfLivingCell(Cell cellTarget)
         {
             var allNeighbourOfCell = GetAllNeighboursOfLivingCell(cellTarget);
