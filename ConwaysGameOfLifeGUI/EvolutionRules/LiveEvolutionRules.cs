@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace ConwaysGameOfLifeGUI.EvolutionRules
 {
-    class LiveEvolutionRules
+    public class LiveEvolutionRules
     {
         private const int NumberOfNeighboursNeededtoLive = 3;
 

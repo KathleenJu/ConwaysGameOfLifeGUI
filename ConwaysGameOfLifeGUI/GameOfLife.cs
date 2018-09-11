@@ -18,6 +18,7 @@ namespace ConwaysGameOfLifeGUI
 
         public void Evolve()
         {
+            //flatten list
             var allDeadNeighboursOfLiveCell = new List<IEnumerable<Cell>>();
             var allLiveNeighboursOfLiveCell = new List<IEnumerable<Cell>>();
 
@@ -32,9 +33,11 @@ namespace ConwaysGameOfLifeGUI
 
             UpdateGrid(cellsThatShouldLive, cellsThatShouldDie);
         }
-
+        //This method might can only take one parameter. (shuoldLive - shouldDie = nextGenLiving)
         private void UpdateGrid(List<Cell> cellsThatShouldLive, List<Cell> cellsThatShouldDie)
         {
+            //Grid.Clean();
+            //Grid.AddCells(list)
             cellsThatShouldLive.ForEach(cell => { Grid.AddCell(cell); });
             cellsThatShouldDie.ForEach(cell => { Grid.RemoveCell(cell); });
         }
@@ -50,7 +53,7 @@ namespace ConwaysGameOfLifeGUI
         }
 
         public void SetInitialStateOfGrid(List<Cell> initialLivingCells)
-        {
+        {//upgradeGrid()
             initialLivingCells.ForEach(cell => Grid.AddCell(cell));
         }
 
