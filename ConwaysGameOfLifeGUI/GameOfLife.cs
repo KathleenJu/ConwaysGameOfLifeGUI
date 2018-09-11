@@ -47,6 +47,11 @@ namespace ConwaysGameOfLifeGUI
             Grid = new Grid(height, width);
         }
 
+        public void AddCellToGrid(Cell cell)
+        {
+            Grid.AddCell(cell);
+        }
+
         public void SetInitialStateOfGrid(List<Cell> initialLivingCells)
         {//upgradeGrid()
             initialLivingCells.ForEach(cell => Grid.AddCell(cell));
