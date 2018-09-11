@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace ConwaysGameOfLifeGUI.EvolutionRules
 {
-    class DeadEvolutionRules
+    public class DeadEvolutionRules
     {
         private readonly List<int> NumbersOfNeighboursNeededtoLive = new List<int> {2, 3};
 

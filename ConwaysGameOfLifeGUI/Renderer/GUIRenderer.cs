@@ -12,7 +12,7 @@ namespace ConwaysGameOfLifeGUI.Renderer
     {
         private const int CellSize = 10;
         private readonly GameEngine _gameEngine;
-        private List<Cell> _initialCells;
+        private readonly List<Cell> _initialCells;
         
 
         public GuiRenderer(GameEngine gameEngine)
