@@ -28,5 +28,14 @@ namespace ConwaysGameOfLifeGUI.EvolutionRules
             var cellsWithThreeNeighbours = dict.Where(cellInDict => cellInDict.Value == NumberOfNeighboursNeededtoLive).Select(cellInDict => cellInDict.Key).ToList();
             return cellsWithThreeNeighbours;
         }
+
+        public List<Cell> GetDeadCellsThatShouldLive(List<Cell> listOfAllDeadNeighboursOfLiveCells)
+        {
+            var cellsThatShouldLive = listOfAllDeadNeighboursOfLiveCells.GroupBy(cell => new {cell.Row, cell.Column})
+                .Where(cell => cell.Count() == NumberOfNeighboursNeededtoLive)
+                .Select(cell => new Cell(cell.Key.Row, cell.Key.Column)).ToList();     
+            
+            return cellsThatShouldLive;
+        }
     }
 }

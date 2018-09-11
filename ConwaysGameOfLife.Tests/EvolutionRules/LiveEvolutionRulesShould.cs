@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ConwaysGameOfLifeGUI;
 using ConwaysGameOfLifeGUI.EvolutionRules;
 using FluentAssertions;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
+using System.Linq;
 using Xunit;
 using Assert = Xunit.Assert;
 
@@ -14,72 +11,80 @@ namespace ConwaysGameOfLife.Tests
 {
     public class LiveEvolutionRulesShould
     {
+        private readonly TestHelper _testHelper = new TestHelper();
+        private readonly LiveEvolutionRules _rules = new LiveEvolutionRules();
+        //private readonly Grid _grid = new Grid(5,5);
+
         [Fact]
         public void GetTheDeadCellThatShouldBecomeAliveWhenItHasThreeLiveNeighbours()
         {
-            var rules = new LiveEvolutionRules();
             var grid = new Grid(5, 5);
-            grid.AddCell(new Cell(0, 2));
-            grid.AddCell(new Cell(0, 1));
-            grid.AddCell(new Cell(1, 0));
-
-            var neighboursOfAliveCell = new List<IEnumerable<Cell>>
+            int[][] graph =
             {
-                grid.GetDeadNeighboursOfLivingCell(new Cell(0, 2)),
-                grid.GetDeadNeighboursOfLivingCell(new Cell(0, 1)),
-                grid.GetDeadNeighboursOfLivingCell(new Cell(1, 0))
+                new[]{0, 0, 1, 1, 0},
+                new[]{0, 1, 0, 0, 0},
+                new[]{0, 0, 0, 0, 0},
+                new[]{0, 0, 0, 0, 0},
+                new[]{0, 0, 0, 0, 0}
             };
 
-            var expectedLiveCells = new List<Cell> { new Cell(1, 1) };
-            var cellsThatShouldLive = rules.GetDeadCellsThatShouldLive(neighboursOfAliveCell);
+            _testHelper.TransformGraphToCells(graph).ForEach(cell => grid.AddCell(cell));
 
-            expectedLiveCells.Should().BeEquivalentTo(expectedLiveCells);
-            Assert.Single(cellsThatShouldLive);
-        }
-
-        [Fact]
-        public void GetMultipleDeadCellsThatShouldBecomeAliveWhenTheyHaveThreeLiveNeighbours()
-        {
-            var rules = new LiveEvolutionRules();
-            var grid = new Grid(5, 5);
-            grid.AddCell(new Cell(1, 1));
-            grid.AddCell(new Cell(1, 2));
-            grid.AddCell(new Cell(2, 1));
-            grid.AddCell(new Cell(2, 0));
-
-            var neighboursOfAliveCell = new List<IEnumerable<Cell>>
+            var allDeadNeighboursOfAliveCells = new List<Cell>();
+            foreach (var livingCell in grid.GetLivingCells())
             {
-                grid.GetDeadNeighboursOfLivingCell(new Cell(1, 1)),
-                grid.GetDeadNeighboursOfLivingCell(new Cell(1, 2)),
-                grid.GetDeadNeighboursOfLivingCell(new Cell(2, 0)),
-                grid.GetDeadNeighboursOfLivingCell(new Cell(2, 1))
+                allDeadNeighboursOfAliveCells.AddRange(grid.GetDeadNeighboursOfLivingCell(livingCell));
+            }
+
+            int[][] expectedLiveCellsGraph =
+            {
+                new[]{0, 0, 0, 0, 0},
+                new[]{0, 0, 1, 0, 0},
+                new[]{0, 0, 0, 0, 0},
+                new[]{0, 0, 0, 0, 0},
+                new[]{0, 0, 0, 0, 0}
             };
 
-            var expectedLiveCells = new List<Cell> { new Cell(1, 0), new Cell(2, 2) };
-            var cellsThatShouldLive = rules.GetDeadCellsThatShouldLive(neighboursOfAliveCell);
+            var expectedLiveCells = _testHelper.TransformGraphToCells(expectedLiveCellsGraph);
+            var actualLiveCells = _rules.GetDeadCellsThatShouldLive(allDeadNeighboursOfAliveCells);
 
-            expectedLiveCells.Should().BeEquivalentTo(expectedLiveCells);
-            Assert.Equal(2, cellsThatShouldLive.Count);
+            expectedLiveCells.Should().BeEquivalentTo(actualLiveCells);
+            Assert.Single(actualLiveCells);
         }
+
 
         [Fact]
         public void GetNoDeadCellsThatShouldBecomeAliveWhenTheyDoNotHaveThreeLiveNeighbours()
         {
-            var rules = new LiveEvolutionRules();
             var grid = new Grid(5, 5);
-            grid.AddCell(new Cell(1, 1));
-            grid.AddCell(new Cell(1, 3));
-            grid.AddCell(new Cell(2, 0));
-
-            var neighboursOfAliveCell = new List<IEnumerable<Cell>>
+            int[][] graph =
             {
-                grid.GetDeadNeighboursOfLivingCell(new Cell(1, 1)),
-                grid.GetDeadNeighboursOfLivingCell(new Cell(1, 3)),
-                grid.GetDeadNeighboursOfLivingCell(new Cell(2, 0))
+                new[]{0, 0, 0, 0, 0},
+                new[]{0, 1, 0, 1, 0},
+                new[]{1, 0, 0, 0, 0},
+                new[]{0, 0, 0, 0, 0},
+                new[]{0, 0, 0, 0, 0}
             };
 
-            var expectedLiveCells = new List<Cell> { };
-            var cellsThatShouldLive = rules.GetDeadCellsThatShouldLive(neighboursOfAliveCell);
+            _testHelper.TransformGraphToCells(graph).ForEach(cell => grid.AddCell(cell));
+
+            var allDeadNeighboursOfAliveCells = new List<Cell>();
+            foreach (var livingCell in grid.GetLivingCells())
+            {
+                allDeadNeighboursOfAliveCells.AddRange(grid.GetDeadNeighboursOfLivingCell(livingCell));
+            }            
+
+            int[][] expectedLiveCellsGraph =
+            {
+                new[]{0, 0, 0, 0, 0},
+                new[]{0, 0, 0, 0, 0},
+                new[]{0, 0, 0, 0, 0},
+                new[]{0, 0, 0, 0, 0},
+                new[]{0, 0, 0, 0, 0}
+            };
+
+            var expectedLiveCells = _testHelper.TransformGraphToCells(expectedLiveCellsGraph);           
+            var cellsThatShouldLive = _rules.GetDeadCellsThatShouldLive(allDeadNeighboursOfAliveCells);
 
             expectedLiveCells.Should().BeEquivalentTo(expectedLiveCells);
             Assert.Empty(cellsThatShouldLive);
