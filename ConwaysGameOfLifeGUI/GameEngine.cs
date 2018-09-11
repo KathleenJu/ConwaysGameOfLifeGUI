@@ -53,5 +53,9 @@ namespace ConwaysGameOfLifeGUI
             return _numberOfLivingCells;
         }
 
+        public void AddLivingCell(Cell cell)
+        {
+            _gameOfLife.AddLivingCell(cell);
+        }
     }
 }

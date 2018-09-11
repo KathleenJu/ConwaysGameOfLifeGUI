@@ -67,9 +67,9 @@ namespace ConwaysGameOfLifeGUI.Renderer
 
         private void UpgradeGridBox(Cell cell)
         {
-            _initialCells.Add(cell);
-            SetNumberOfLivingCells(_initialCells.Count);
-            Render(GetBitmapDrawing(_initialCells));
+            _gameEngine.AddLivingCell(cell);
+            SetNumberOfLivingCells(_gameEngine.LivingCells.Count());
+            Render(GetBitmapDrawing(_gameEngine.LivingCells));
         }
 
         private void ClearGridButton_Click(object sender, EventArgs e)
@@ -81,8 +81,9 @@ namespace ConwaysGameOfLifeGUI.Renderer
 
         private void StartGameButton_Click(object sender, EventArgs e)
         {
+            //When form load setGrid...
             _gameEngine.SetGridSize((int)HeightBox.Value, (int)WidthBox.Value);
-            _gameEngine.SetInitialStateOfGrid(_initialCells);
+           // _gameEngine.SetInitialStateOfGrid(_initialCells);
             _gameEngine.StartGame();
             Render(GetBitmapDrawing(_gameEngine.LivingCells));
             //SetGenerationNumber(_gameEngine.GetGenerationNumber());

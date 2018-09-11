@@ -47,7 +47,7 @@ namespace ConwaysGameOfLifeGUI
             Grid = new Grid(height, width);
         }
 
-        public void AddCellToGrid(Cell cell)
+        public void AddLivingCell(Cell cell)
         {
             Grid.AddCell(cell);
         }
