@@ -12,8 +12,7 @@ namespace ConwaysGameOfLife.Tests
             {
                 for (int columnIndex = 0; columnIndex < graph[rowIndex].Length; columnIndex++)
                 {
-                    var aliveCell = 1;
-                    if (graph[rowIndex][columnIndex] == aliveCell)
+                    if (graph[rowIndex][columnIndex] == 1)
                     {
                         cells.Add(new Cell(rowIndex, columnIndex));
                     }

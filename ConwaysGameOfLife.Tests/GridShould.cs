@@ -15,10 +15,11 @@ namespace ConwaysGameOfLife.Tests
     public class GridShould
     {
         private readonly Helper _testHelper = new Helper();
+        private readonly Grid _grid = new Grid(5, 5);
+
         [Fact]
         public void GetTheLivingNeighboursOfALivingCell()
         {
-            var grid = new Grid(5, 5);
             int[][] graph =
             {
                 new[]{0, 1, 1, 0, 0},
@@ -28,7 +29,7 @@ namespace ConwaysGameOfLife.Tests
                 new[]{0, 0, 0, 0, 0}
             };
 
-            _testHelper.TransformGraphToCells(graph).ForEach(cell => grid.AddCell(cell));
+            _testHelper.TransformGraphToCells(graph).ForEach(cell => _grid.AddCell(cell));
 
             int[][] expectedLiveNeighbourGraph =
             {
@@ -41,7 +42,7 @@ namespace ConwaysGameOfLife.Tests
   
             var expectedLiveNeighbours= _testHelper.TransformGraphToCells(expectedLiveNeighbourGraph);
             var cellTarget = new Cell(1, 1);
-            var actualLiveNeighbours = grid.GetLiveNeighboursOfLivingCell(cellTarget);
+            var actualLiveNeighbours = _grid.GetLiveNeighboursOfALivingCell(cellTarget);
 
             expectedLiveNeighbours.Should().BeEquivalentTo(actualLiveNeighbours);
             Assert.Equal(3, actualLiveNeighbours.Count());
@@ -50,7 +51,6 @@ namespace ConwaysGameOfLife.Tests
         [Fact]
         public void GetTheLivingNeighboursOfASingleLivingCell()
         {           
-            var grid = new Grid(5, 5);
             int[][] graph =
             {
                 new[]{0, 0, 0, 0, 0},
@@ -60,7 +60,7 @@ namespace ConwaysGameOfLife.Tests
                 new[]{0, 0, 0, 0, 0}
             };
 
-            _testHelper.TransformGraphToCells(graph).ForEach(cell => grid.AddCell(cell));
+            _testHelper.TransformGraphToCells(graph).ForEach(cell => _grid.AddCell(cell));
 
             int[][] expectedLiveNeighboursGraph =
             {
@@ -73,7 +73,7 @@ namespace ConwaysGameOfLife.Tests
 
             var expectedLiveNeighbours = _testHelper.TransformGraphToCells(expectedLiveNeighboursGraph);
             var cellTarget = new Cell(1, 1);
-            var actualLiveNeighbours = grid.GetLiveNeighboursOfLivingCell(cellTarget);
+            var actualLiveNeighbours = _grid.GetLiveNeighboursOfALivingCell(cellTarget);
 
             expectedLiveNeighbours.Should().BeEquivalentTo(actualLiveNeighbours);
             Assert.Empty(actualLiveNeighbours);
@@ -105,7 +105,7 @@ namespace ConwaysGameOfLife.Tests
 
             var expectedLiveNeighbours = _testHelper.TransformGraphToCells(expectedLiveNeighboursGraph);
             var cellTarget = new Cell(2, 4);
-            var actualLiveNeighbours = grid.GetLiveNeighboursOfLivingCell(cellTarget);
+            var actualLiveNeighbours = grid.GetLiveNeighboursOfALivingCell(cellTarget);
 
 
             expectedLiveNeighbours.Should().BeEquivalentTo(actualLiveNeighbours);
@@ -115,7 +115,6 @@ namespace ConwaysGameOfLife.Tests
         [Fact]
         public void GetTheLivingNeighboursOfALivingCellOnACorner()
         {
-            var grid = new Grid(5, 5);
             int[][] graph =
             {
                 new[]{1, 1, 0, 0, 1},
@@ -125,7 +124,7 @@ namespace ConwaysGameOfLife.Tests
                 new[]{0, 1, 0, 0, 1}
             };
 
-            _testHelper.TransformGraphToCells(graph).ForEach(cell => grid.AddCell(cell));
+            _testHelper.TransformGraphToCells(graph).ForEach(cell => _grid.AddCell(cell));
 
             int[][] expectedLiveNeighboursGraph =
             {
@@ -138,7 +137,7 @@ namespace ConwaysGameOfLife.Tests
 
             var expectedLiveNeighbours = _testHelper.TransformGraphToCells(expectedLiveNeighboursGraph);
             var cellTarget = new Cell(0, 0);
-            var actualLiveNeighbours = grid.GetLiveNeighboursOfLivingCell(cellTarget);
+            var actualLiveNeighbours = _grid.GetLiveNeighboursOfALivingCell(cellTarget);
 
             expectedLiveNeighbours.Should().BeEquivalentTo(actualLiveNeighbours);
             Assert.Equal(5, actualLiveNeighbours.Count());
@@ -146,7 +145,6 @@ namespace ConwaysGameOfLife.Tests
         [Fact]
         public void GetTheDeadNeighboursOfCell()
         {
-            var grid = new Grid(5, 5);
             int[][] graph =
             {
                 new[]{1, 1, 0, 0, 0},
@@ -156,7 +154,7 @@ namespace ConwaysGameOfLife.Tests
                 new[]{0, 0, 0, 0, 0}
             };
 
-            _testHelper.TransformGraphToCells(graph).ForEach(cell => grid.AddCell(cell));
+            _testHelper.TransformGraphToCells(graph).ForEach(cell => _grid.AddCell(cell));
 
             int[][] expectedNeighbourCellsGraph =
             {
@@ -169,7 +167,7 @@ namespace ConwaysGameOfLife.Tests
 
             var expectedDeadNeighbours = _testHelper.TransformGraphToCells(expectedNeighbourCellsGraph);
             var cellTarget = new Cell(1, 1);
-            var actualDeadNeighbours = grid.GetDeadNeighboursOfLivingCell(cellTarget);
+            var actualDeadNeighbours = _grid.GetDeadNeighboursOfLivingCell(cellTarget);
 
             expectedDeadNeighbours.Should().BeEquivalentTo(expectedDeadNeighbours);
             Assert.Equal(5, actualDeadNeighbours.Count());
@@ -178,7 +176,6 @@ namespace ConwaysGameOfLife.Tests
         [Fact]
         public void GetTheDeadNeighboursOfCellInACorner()
         {
-            var grid = new Grid(5, 5);
             int[][] graph =
             {
                 new[]{1, 1, 0, 0, 0},
@@ -188,7 +185,7 @@ namespace ConwaysGameOfLife.Tests
                 new[]{0, 0, 0, 0, 0}
             };
 
-            _testHelper.TransformGraphToCells(graph).ForEach(cell => grid.AddCell(cell));
+            _testHelper.TransformGraphToCells(graph).ForEach(cell => _grid.AddCell(cell));
 
             int[][] expectedNeighbourCellsGraph =
             {
@@ -201,10 +198,35 @@ namespace ConwaysGameOfLife.Tests
 
             var expectedDeadNeighbours = _testHelper.TransformGraphToCells(expectedNeighbourCellsGraph);
             var cellTarget = new Cell(1, 1);
-            var actualDeadNeighbours = grid.GetDeadNeighboursOfLivingCell(cellTarget);
+            var actualDeadNeighbours = _grid.GetDeadNeighboursOfLivingCell(cellTarget);
 
             expectedDeadNeighbours.Should().BeEquivalentTo(expectedDeadNeighbours);
             Assert.Equal(5, actualDeadNeighbours.Count());
+        }
+
+        [Fact]
+        public void GetTheRightNeighbourCountOfLivingCells()
+        {
+            int[][] graph =
+            {
+                new[]{0, 1, 0, 0, 0},
+                new[]{1, 1, 0, 0, 0},
+                new[]{0, 0, 1, 0, 0},
+                new[]{0, 0, 0, 0, 0},
+                new[]{0, 0, 0, 0, 0}
+            };
+            _testHelper.TransformGraphToCells(graph).ForEach(cell => _grid.AddCell(cell));
+            var expectedDict = new Dictionary<Cell,int >
+            {
+                {new Cell(0,1), 3 },
+                {new Cell(1,0), 3 },
+                {new Cell(1,1), 3 },
+                {new Cell(2,2), 3 }
+            };
+
+            var actualDict =_grid.GetCellsAndItsNumberOfLiveNeighboursDict(_grid.LivingCells.ToList());
+        
+            expectedDict.Should().BeEquivalentTo(actualDict);
         }
     }
 }

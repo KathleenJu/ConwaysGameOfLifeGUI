@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Cell.cs" />
+    <Compile Include="CellComparer.cs" />
     <Compile Include="EvolutionRules\DeadEvolutionRules.cs" />
     <Compile Include="GameEngine.cs" />
     <Compile Include="Renderer\GUIRenderer.cs">

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using ConwaysGameOfLifeGUI.Cel;
 using ConwaysGameOfLifeGUI.EvolutionRules;
 
 namespace ConwaysGameOfLifeGUI
@@ -25,7 +26,7 @@ namespace ConwaysGameOfLifeGUI
             foreach (var cell in LivingCells)
             {
                 allDeadNeighboursOfLiveCells.AddRange(_grid.GetDeadNeighboursOfLivingCell(cell));
-                allLiveNeighboursOfLiveCells.AddRange(_grid.GetLiveNeighboursOfLivingCell(cell));
+                allLiveNeighboursOfLiveCells.AddRange(_grid.GetLiveNeighboursOfALivingCell(cell));
             }
 
             var cellsThatShouldLive = _liveEvolutionRules.GetDeadCellsThatShouldLive(allDeadNeighboursOfLiveCells);

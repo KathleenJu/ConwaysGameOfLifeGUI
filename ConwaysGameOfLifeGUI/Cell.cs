@@ -10,11 +10,5 @@
             Row = row;
             Column = column;
         }
-
-        public override bool Equals(object cellObj)
-        {
-            var cell = (Cell)cellObj;
-            return cell.Row == Row && cell.Column == Column;
-        }
     }
 }
