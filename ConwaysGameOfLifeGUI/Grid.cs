@@ -5,50 +5,51 @@ namespace ConwaysGameOfLifeGUI
 {
     public class Grid
     {
-        public int Height { get; }
-        public int Width { get; }
-        private readonly List<Cell> LivingCells;
+        public int Height { get; private set; }
+        public int Width { get; private set; }
+        private readonly List<Cell> _livingCells;
 
         public Grid(int height, int width)
         {
             Height = height;
             Width = width;
-            LivingCells = new List<Cell>();
+            _livingCells = new List<Cell>();
         }
 
         public IEnumerable<Cell> GetLivingCells()
         {
-            return LivingCells;
+            return _livingCells;
         }
 
         public void AddCell(Cell cell)
         {
-            if (!LivingCells.Any(c => c.Equals(cell)))
+            if (!_livingCells.Any(c => c.Equals(cell)))
             {
-                LivingCells.Add(cell);
+                _livingCells.Add(cell);
             }
         }
 
-        public void RemoveCell(Cell cell)
+        public void UpdateGridSize(int height, int width)
         {
-            LivingCells.Remove(cell);
+            Height = height;
+            Width = width;
         }
 
         public void Clear()
         {
-            LivingCells.Clear();
+            _livingCells.Clear();
         }
 
         public IEnumerable<Cell> GetLiveNeighboursOfLivingCell(Cell cellTarget)
         {
             var allNeighbourOfCell = GetAllNeighboursOfLivingCell(cellTarget);
-            return allNeighbourOfCell.Where(neighbourCell => LivingCells.Any(livingCell => livingCell.Equals(neighbourCell)));
+            return allNeighbourOfCell.Where(neighbourCell => _livingCells.Any(livingCell => livingCell.Equals(neighbourCell)));
         }
 
         public IEnumerable<Cell> GetDeadNeighboursOfLivingCell(Cell cellTarget)
         {
             var allNeighbourOfCell = GetAllNeighboursOfLivingCell(cellTarget);
-            return allNeighbourOfCell.Where(neighbourCell => !LivingCells.Any(livingCell => livingCell.Equals(neighbourCell)));
+            return allNeighbourOfCell.Where(neighbourCell => !_livingCells.Any(livingCell => livingCell.Equals(neighbourCell)));
         }
 
         public IEnumerable<Cell> GetAllNeighboursOfLivingCell(Cell cellTarget)

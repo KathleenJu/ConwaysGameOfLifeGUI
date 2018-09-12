@@ -19,11 +19,6 @@ namespace ConwaysGameOfLifeGUI.Renderer
             _gameEngine = gameEngine;
         }
 
-        public void GuiRenderer_Load(object sender, EventArgs e)
-        {
-            _gameEngine.SetGridSize((int)HeightBox.Value, (int)WidthBox.Value);
-        }
-
         public void SetGenerationNumber(int generation)
         {
             GenerationNumber.Text = generation.ToString();
@@ -45,19 +40,7 @@ namespace ConwaysGameOfLifeGUI.Renderer
                 graphics.FillRectangle(Brushes.Aqua, livingCells.ElementAt(cellIndex).Row * CellSize, livingCells.ElementAt(cellIndex).Column * CellSize, CellSize, CellSize);
             }
 
-            //graphics.Clear();
-            //only new the bitmap when start game, setting the grid height and width
             return bitmap;
-        }
-
-        private void WidthBox_ValueChanged(object sender, EventArgs e)
-        {
-            GridBox.Width = (int)WidthBox.Value;
-        }
-         
-        private void HeightBox_ValueChanged(object sender, EventArgs e)
-        {
-            GridBox.Height = (int)HeightBox.Value;
         }
 
         private void GridBox_Click(object sender, MouseEventArgs e)
@@ -81,7 +64,6 @@ namespace ConwaysGameOfLifeGUI.Renderer
 
         private void StartGameButton_Click(object sender, EventArgs e)
         {
-            _gameEngine.SetGridSize((int)HeightBox.Value, (int)WidthBox.Value);
             Action<IEnumerable<Cell>> renderAction = RenderAction;
             _gameEngine.StartGame(renderAction);        
         }
@@ -100,6 +82,14 @@ namespace ConwaysGameOfLifeGUI.Renderer
             GridBox.Refresh();
             SetGenerationNumber(_gameEngine.GetGenerationNumber());
             SetNumberOfLivingCells(_gameEngine.GetNumberOfLivingCells());
-        }    
+        }
+
+        private void SetGridButton_Click(object sender, EventArgs e)
+        {
+            GridBox.Height = (int) HeightBox.Value;
+            GridBox.Width = (int) WidthBox.Value;
+            GridBox.Visible = true;
+            _gameEngine.SetGrid(GridBox.Height, GridBox.Width);
+        }
     }
 }

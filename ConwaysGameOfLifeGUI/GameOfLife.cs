@@ -6,10 +6,10 @@ namespace ConwaysGameOfLifeGUI
 {
     public class GameOfLife
     {
-        private Grid Grid;
+        private Grid _grid;
         private readonly DeadEvolutionRules _deadEvolutionRules;
         private readonly LiveEvolutionRules _liveEvolutionRules;
-        public IEnumerable<Cell> LivingCells => Grid.GetLivingCells();
+        public IEnumerable<Cell> LivingCells => _grid.GetLivingCells();
 
         public GameOfLife()
         {
@@ -20,40 +20,53 @@ namespace ConwaysGameOfLifeGUI
         public void Evolve()
         {
             var allDeadNeighboursOfLiveCells = new List<Cell>();
-            var allLiveNeighboursOfLiveCell = new List<Cell>();
+            var allLiveNeighboursOfLiveCells = new List<Cell>();
 
             foreach (var cell in LivingCells)
             {
-                allDeadNeighboursOfLiveCells.AddRange(Grid.GetDeadNeighboursOfLivingCell(cell));
-                allLiveNeighboursOfLiveCell.AddRange(Grid.GetLiveNeighboursOfLivingCell(cell));
+                allDeadNeighboursOfLiveCells.AddRange(_grid.GetDeadNeighboursOfLivingCell(cell));
+                allLiveNeighboursOfLiveCells.AddRange(_grid.GetLiveNeighboursOfLivingCell(cell));
             }
 
             var cellsThatShouldLive = _liveEvolutionRules.GetDeadCellsThatShouldLive(allDeadNeighboursOfLiveCells);
-            var cellsThatShouldDie = _deadEvolutionRules.GetLiveCellsThatShouldDie(allLiveNeighboursOfLiveCell);
+            var cellsThatShouldDie = _deadEvolutionRules.GetLiveCellsThatShouldDie(allLiveNeighboursOfLiveCells);
+            var newLivingCells = GetNewLivingCells(cellsThatShouldDie, cellsThatShouldLive);
 
-            var newLivingCells = LivingCells.Where(cell => !cellsThatShouldDie.Any(x => cell.Row == x.Row && cell.Column == x.Column)).Concat(cellsThatShouldLive).ToList();
             UpdateGrid(newLivingCells);
+        }
+
+        private List<Cell> GetNewLivingCells(List<Cell> cellsThatShouldDie, List<Cell> cellsThatShouldLive)
+        {
+            return LivingCells
+                .Where(livingCell => !cellsThatShouldDie
+                    .Any(dyingCell => livingCell.Row == dyingCell.Row && livingCell.Column == dyingCell.Column))
+                .Concat(cellsThatShouldLive).ToList();
         }
 
         private void UpdateGrid(List<Cell> newLivingCells)
         {
-            Grid.Clear();
-            newLivingCells.ForEach(cell => { Grid.AddCell(cell); });
+            _grid.Clear();
+            newLivingCells.ForEach(cell => { _grid.AddCell(cell); });
         }
 
-        public void SetGridSize(int height, int width)
+        public void UpdateGridSize(int height, int width)
         {
-            Grid = new Grid(height, width);
+            _grid.UpdateGridSize(height, width);
+        }
+
+        public void SetGrid(int height, int width)
+        {
+            _grid = new Grid(height, width);
         }
 
         public void AddCellToGrid(Cell cell)
         {
-            Grid.AddCell(cell);
+            _grid.AddCell(cell);
         }
 
         public void ClearGrid()
         {
-            Grid.Clear();
+            _grid.Clear();
         }
     }
 }

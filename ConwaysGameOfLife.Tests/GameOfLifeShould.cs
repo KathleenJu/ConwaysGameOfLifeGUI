@@ -17,8 +17,8 @@ namespace ConwaysGameOfLife.Tests
 
         [Fact]
         public void ReturnAnEmptyGridWhenAllALiveCellsDie()
-        {         
-            _gameOfLife.SetGridSize(5,5);
+        {
+            _gameOfLife.SetGrid(5, 5);
             int[][] graph =
             {
                 new[]{0, 0, 0, 0, 0},
@@ -51,7 +51,7 @@ namespace ConwaysGameOfLife.Tests
         [Fact]
         public void KeepTheStateOfTheGridAsNoCellDies()
         {
-            _gameOfLife.SetGridSize(5, 5);
+            _gameOfLife.SetGrid(5, 5);
             int[][] graph =
             {
                 new[]{0, 0, 0, 0, 0},
@@ -83,8 +83,8 @@ namespace ConwaysGameOfLife.Tests
 
         [Fact]
         public void RemoveCellsFromGridWhenMultipleLiveCellsDieAndAddCellsThatShouldBecomeAlive()
-        {          
-            _gameOfLife.SetGridSize(5, 5);
+        {
+            _gameOfLife.SetGrid(5, 5);
             int[][] graph =
             {
                 new[]{0, 0, 0, 0, 0},
@@ -112,6 +112,39 @@ namespace ConwaysGameOfLife.Tests
 
             expectedLiveCells.Should().BeEquivalentTo(actualLivingCells);
             Assert.Equal(4, actualLivingCells.Count());
-        }     
+        }
+
+        [Fact]
+        public void WrapCellsToTheOtherSide()
+        {
+            _gameOfLife.SetGrid(5, 5);
+            int[][] graph =
+            {
+                new[]{0, 0, 0, 1, 0},
+                new[]{0, 0, 0, 0, 0},
+                new[]{0, 0, 0, 0, 0},
+                new[]{0, 0, 0, 0, 0},
+                new[]{0, 0, 0, 1, 1}
+            };
+
+            _testHelper.TransformGraphToCells(graph).ForEach(cell => _gameOfLife.AddCellToGrid(cell));
+
+            _gameOfLife.Evolve();
+
+            int[][] expectedLiveCellsGraph =
+            {
+                new[]{0, 0, 0, 1, 1},
+                new[]{0, 0, 0, 0, 0},
+                new[]{0, 0, 0, 0, 0},
+                new[]{0, 0, 0, 0, 0},
+                new[]{0, 0, 0, 1, 1}
+            };
+
+            var expectedLiveCells = _testHelper.TransformGraphToCells(expectedLiveCellsGraph);
+            var actualLivingCells = _gameOfLife.LivingCells;
+
+            expectedLiveCells.Should().BeEquivalentTo(actualLivingCells);
+            Assert.Equal(4, actualLivingCells.Count());
+        }
     }
 }

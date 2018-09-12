@@ -33,9 +33,14 @@ namespace ConwaysGameOfLifeGUI
             }
         }
 
-        public void SetGridSize(int height, int width)
+        public void SetGrid(int height, int width)
         {
-            _gameOfLife.SetGridSize(height, width);
+            _gameOfLife.SetGrid(height, width);
+        }
+
+        public void UpdateGridSize(int height, int width)
+        {
+            _gameOfLife.UpdateGridSize(height, width);
         }
 
         public int GetGenerationNumber()

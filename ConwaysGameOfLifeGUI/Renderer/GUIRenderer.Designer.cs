@@ -31,7 +31,6 @@ namespace ConwaysGameOfLifeGUI.Renderer
         private void InitializeComponent()
         {
             this.GridBox = new System.Windows.Forms.PictureBox();
-            
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.WidthBox = new System.Windows.Forms.NumericUpDown();
@@ -41,6 +40,7 @@ namespace ConwaysGameOfLifeGUI.Renderer
             this.GenerationNumber = new System.Windows.Forms.Label();
             this.NoOfLivingCells = new System.Windows.Forms.Label();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.SetGridButton = new System.Windows.Forms.Button();
             this.ClearGridButton = new System.Windows.Forms.Button();
             this.StartGameButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.GridBox)).BeginInit();
@@ -60,6 +60,7 @@ namespace ConwaysGameOfLifeGUI.Renderer
             this.GridBox.Size = new System.Drawing.Size(1000, 800);
             this.GridBox.TabIndex = 1;
             this.GridBox.TabStop = false;
+            this.GridBox.Visible = false;
             this.GridBox.MouseClick += new System.Windows.Forms.MouseEventHandler(this.GridBox_Click);
             // 
             // label1
@@ -109,7 +110,7 @@ namespace ConwaysGameOfLifeGUI.Renderer
             0,
             0,
             0});
-            this.WidthBox.ValueChanged += new System.EventHandler(this.WidthBox_ValueChanged);
+
             // 
             // HeightBox
             // 
@@ -138,7 +139,6 @@ namespace ConwaysGameOfLifeGUI.Renderer
             0,
             0,
             0});
-            this.HeightBox.ValueChanged += new System.EventHandler(this.HeightBox_ValueChanged);
             // 
             // label3
             // 
@@ -195,6 +195,7 @@ namespace ConwaysGameOfLifeGUI.Renderer
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.CausesValidation = false;
+            this.splitContainer1.Panel2.Controls.Add(this.SetGridButton);
             this.splitContainer1.Panel2.Controls.Add(this.ClearGridButton);
             this.splitContainer1.Panel2.Controls.Add(this.NoOfLivingCells);
             this.splitContainer1.Panel2.Controls.Add(this.HeightBox);
@@ -205,10 +206,21 @@ namespace ConwaysGameOfLifeGUI.Renderer
             this.splitContainer1.SplitterDistance = 359;
             this.splitContainer1.TabIndex = 13;
             // 
+            // SetGridButton
+            // 
+            this.SetGridButton.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.SetGridButton.Location = new System.Drawing.Point(424, 3);
+            this.SetGridButton.Name = "SetGridButton";
+            this.SetGridButton.Size = new System.Drawing.Size(184, 38);
+            this.SetGridButton.TabIndex = 16;
+            this.SetGridButton.Text = "Set Grid";
+            this.SetGridButton.UseVisualStyleBackColor = false;
+            this.SetGridButton.Click += new System.EventHandler(this.SetGridButton_Click);
+            // 
             // ClearGridButton
             // 
             this.ClearGridButton.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.ClearGridButton.Location = new System.Drawing.Point(424, 20);
+            this.ClearGridButton.Location = new System.Drawing.Point(424, 45);
             this.ClearGridButton.Name = "ClearGridButton";
             this.ClearGridButton.Size = new System.Drawing.Size(184, 38);
             this.ClearGridButton.TabIndex = 15;
@@ -219,7 +231,7 @@ namespace ConwaysGameOfLifeGUI.Renderer
             // StartGameButton
             // 
             this.StartGameButton.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.StartGameButton.Location = new System.Drawing.Point(424, 74);
+            this.StartGameButton.Location = new System.Drawing.Point(424, 89);
             this.StartGameButton.Name = "StartGameButton";
             this.StartGameButton.Size = new System.Drawing.Size(184, 39);
             this.StartGameButton.TabIndex = 13;
@@ -230,7 +242,6 @@ namespace ConwaysGameOfLifeGUI.Renderer
             // GuiRenderer
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.Load += new System.EventHandler(this.GuiRenderer_Load);
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.ClientSize = new System.Drawing.Size(1004, 937);
             this.Controls.Add(this.GridBox);
@@ -240,6 +251,7 @@ namespace ConwaysGameOfLifeGUI.Renderer
             this.MinimizeBox = false;
             this.Name = "GuiRenderer";
             this.Text = "Conway\'s Game of Life";
+
             ((System.ComponentModel.ISupportInitialize)(this.GridBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.WidthBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.HeightBox)).EndInit();
@@ -266,6 +278,7 @@ namespace ConwaysGameOfLifeGUI.Renderer
         private SplitContainer splitContainer1;
         private Button StartGameButton;
         private Button ClearGridButton;
+        private Button SetGridButton;
     }
 }
 
