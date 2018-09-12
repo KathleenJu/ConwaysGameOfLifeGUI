@@ -41,7 +41,7 @@ namespace ConwaysGameOfLife.Tests
   
             var expectedLiveNeighbours= _testHelper.TransformGraphToCells(expectedLiveNeighbourGraph);
             var cellTarget = new Cell(1, 1);
-            var actualLiveNeighbours = grid.GetLiveNeighboursOfLivingCell(cellTarget);
+            var actualLiveNeighbours = grid.GetLiveNeighboursOfALivingCell(cellTarget);
 
             expectedLiveNeighbours.Should().BeEquivalentTo(actualLiveNeighbours);
             Assert.Equal(3, actualLiveNeighbours.Count());
@@ -73,7 +73,7 @@ namespace ConwaysGameOfLife.Tests
 
             var expectedLiveNeighbours = _testHelper.TransformGraphToCells(expectedLiveNeighboursGraph);
             var cellTarget = new Cell(1, 1);
-            var actualLiveNeighbours = grid.GetLiveNeighboursOfLivingCell(cellTarget);
+            var actualLiveNeighbours = grid.GetLiveNeighboursOfALivingCell(cellTarget);
 
             expectedLiveNeighbours.Should().BeEquivalentTo(actualLiveNeighbours);
             Assert.Empty(actualLiveNeighbours);
@@ -105,7 +105,7 @@ namespace ConwaysGameOfLife.Tests
 
             var expectedLiveNeighbours = _testHelper.TransformGraphToCells(expectedLiveNeighboursGraph);
             var cellTarget = new Cell(2, 4);
-            var actualLiveNeighbours = grid.GetLiveNeighboursOfLivingCell(cellTarget);
+            var actualLiveNeighbours = grid.GetLiveNeighboursOfALivingCell(cellTarget);
 
 
             expectedLiveNeighbours.Should().BeEquivalentTo(actualLiveNeighbours);
@@ -138,7 +138,7 @@ namespace ConwaysGameOfLife.Tests
 
             var expectedLiveNeighbours = _testHelper.TransformGraphToCells(expectedLiveNeighboursGraph);
             var cellTarget = new Cell(0, 0);
-            var actualLiveNeighbours = grid.GetLiveNeighboursOfLivingCell(cellTarget);
+            var actualLiveNeighbours = grid.GetLiveNeighboursOfALivingCell(cellTarget);
 
             expectedLiveNeighbours.Should().BeEquivalentTo(actualLiveNeighbours);
             Assert.Equal(5, actualLiveNeighbours.Count());
@@ -169,7 +169,7 @@ namespace ConwaysGameOfLife.Tests
 
             var expectedDeadNeighbours = _testHelper.TransformGraphToCells(expectedNeighbourCellsGraph);
             var cellTarget = new Cell(1, 1);
-            var actualDeadNeighbours = grid.GetDeadNeighboursOfLivingCell(cellTarget);
+            var actualDeadNeighbours = grid.GetDeadNeighboursOfALivingCell(cellTarget);
 
             expectedDeadNeighbours.Should().BeEquivalentTo(expectedDeadNeighbours);
             Assert.Equal(5, actualDeadNeighbours.Count());
@@ -201,7 +201,7 @@ namespace ConwaysGameOfLife.Tests
 
             var expectedDeadNeighbours = _testHelper.TransformGraphToCells(expectedNeighbourCellsGraph);
             var cellTarget = new Cell(1, 1);
-            var actualDeadNeighbours = grid.GetDeadNeighboursOfLivingCell(cellTarget);
+            var actualDeadNeighbours = grid.GetDeadNeighboursOfALivingCell(cellTarget);
 
             expectedDeadNeighbours.Should().BeEquivalentTo(expectedDeadNeighbours);
             Assert.Equal(5, actualDeadNeighbours.Count());

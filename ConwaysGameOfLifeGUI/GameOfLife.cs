@@ -69,7 +69,7 @@ namespace ConwaysGameOfLifeGUI
             _grid.Clear();
         }
 
-        public void RemoveCellToGrid(Cell cell)
+        public void RemoveCellFromGrid(Cell cell)
         {
             _grid.RemoveCell(cell);
         }
