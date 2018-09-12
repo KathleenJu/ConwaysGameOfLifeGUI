@@ -52,33 +52,25 @@ namespace ConwaysGameOfLifeGUI.Renderer
 
         private void UpgradeGridBox(Cell cell)
         {
-            _gameEngine.AddLivingCell(cell);
-            Render(GetGridBitmap(_gameEngine.LivingCells));
+            _gameEngine.AddCellToGrid(cell);
+            Render(_gameEngine.LivingCells);
         }
 
         private void ClearGridButton_Click(object sender, EventArgs e)
         {
             _gameEngine.ClearGrid();
-            Render(new Bitmap(GridBox.Width, GridBox.Height));
+            Render(_gameEngine.LivingCells);
         }
 
         private void StartGameButton_Click(object sender, EventArgs e)
         {
-            Action<IEnumerable<Cell>> renderAction = RenderAction;
+            Action<IEnumerable<Cell>> renderAction = Render;
             _gameEngine.StartGame(renderAction);        
         }
 
-        private void RenderAction(IEnumerable<Cell> gameEngineLivingCells)
+        public void Render(IEnumerable<Cell> livingCells)
         {
-            GridBox.Image = GetGridBitmap(gameEngineLivingCells);
-            GridBox.Refresh();
-            SetGenerationNumber(_gameEngine.GetGenerationNumber());
-            SetNumberOfLivingCells(_gameEngine.GetNumberOfLivingCells());
-        }
-
-        public void Render(Bitmap bitmap)
-        {          
-            GridBox.Image = bitmap;
+            GridBox.Image = GetGridBitmap(livingCells);
             GridBox.Refresh();
             SetGenerationNumber(_gameEngine.GetGenerationNumber());
             SetNumberOfLivingCells(_gameEngine.GetNumberOfLivingCells());

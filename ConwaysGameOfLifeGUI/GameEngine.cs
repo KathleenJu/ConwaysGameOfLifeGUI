@@ -9,7 +9,7 @@ namespace ConwaysGameOfLifeGUI
 {
     public class GameEngine
     {
-        private int _generationNumber;
+        private int _generationNumber = 1;
         private int _numberOfLivingCells;
         private readonly GameOfLife _gameOfLife;
         public IEnumerable<Cell> LivingCells => _gameOfLife.LivingCells;
@@ -21,14 +21,13 @@ namespace ConwaysGameOfLifeGUI
 
         public void StartGame(Action<IEnumerable<Cell>> renderAction)
         {
-            _generationNumber = 1;
-            _numberOfLivingCells = _gameOfLife.LivingCells.Count();
+            _numberOfLivingCells = LivingCells.Count();
             while (true)
             {  
                 _gameOfLife.Evolve();
-                renderAction(_gameOfLife.LivingCells);
+                renderAction(LivingCells);
                 _generationNumber += 1;
-                _numberOfLivingCells = _gameOfLife.LivingCells.Count();
+                _numberOfLivingCells = LivingCells.Count();
                 Thread.Sleep(500);
             }
         }
@@ -52,9 +51,8 @@ namespace ConwaysGameOfLifeGUI
         {
             return _numberOfLivingCells;
         }
-
-        //updategridWithCell?
-        public void AddLivingCell(Cell cell)
+        
+        public void AddCellToGrid(Cell cell)
         {
             _gameOfLife.AddCellToGrid(cell);
         }
