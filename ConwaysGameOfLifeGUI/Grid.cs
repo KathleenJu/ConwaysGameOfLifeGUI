@@ -8,6 +8,7 @@ namespace ConwaysGameOfLifeGUI
         public int Height { get; private set; }
         public int Width { get; private set; }
         private readonly List<Cell> _livingCells;
+        public IEnumerable<Cell> LivingCells => _livingCells;
 
         public Grid(int height, int width)
         {
@@ -16,16 +17,19 @@ namespace ConwaysGameOfLifeGUI
             _livingCells = new List<Cell>();
         }
 
-        public IEnumerable<Cell> GetLivingCells()
-        {
-            return _livingCells;
-        }
-
         public void AddCell(Cell cell)
         {
             if (!_livingCells.Any(c => c.Equals(cell)))
             {
                 _livingCells.Add(cell);
+            }
+        }
+
+        public void RemoveCell(Cell cell)
+        {
+            if (_livingCells.Any(c => c.Equals(cell)))
+            {
+                _livingCells.Remove(cell);
             }
         }
 

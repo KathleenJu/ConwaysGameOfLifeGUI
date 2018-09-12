@@ -10,8 +10,8 @@ namespace ConwaysGameOfLifeGUI.Renderer
 {
     public partial class GuiRenderer : Form
     {
-        private const int CellSize = 10;
         private readonly GameEngine _gameEngine;
+        private const int CellBitmapSize = 10;
 
         public GuiRenderer(GameEngine gameEngine)
         {
@@ -37,7 +37,7 @@ namespace ConwaysGameOfLifeGUI.Renderer
             var graphics = Graphics.FromImage(bitmap);
             for (int cellIndex = 0; cellIndex < livingCells.Count(); cellIndex++)
             {
-                graphics.FillRectangle(Brushes.Aqua, livingCells.ElementAt(cellIndex).Row * CellSize, livingCells.ElementAt(cellIndex).Column * CellSize, CellSize, CellSize);
+                graphics.FillRectangle(Brushes.Aqua, livingCells.ElementAt(cellIndex).Row * CellBitmapSize, livingCells.ElementAt(cellIndex).Column * CellBitmapSize, CellBitmapSize, CellBitmapSize);
             }
 
             return bitmap;
@@ -45,14 +45,22 @@ namespace ConwaysGameOfLifeGUI.Renderer
 
         private void GridBox_Click(object sender, MouseEventArgs e)
         {
-            var row = (int)Math.Round(e.X / 10.0) * CellSize;
-            var column = (int)Math.Round(e.Y / 10.0) * CellSize;
-            UpgradeGridBox(new Cell(row / CellSize, column / CellSize));
+            var row = (int)Math.Round(e.X / 10.0) * CellBitmapSize;
+            var column = (int)Math.Round(e.Y / 10.0) * CellBitmapSize;
+            UpgradeGridBox(new Cell(row / CellBitmapSize, column / CellBitmapSize));
         }
 
         private void UpgradeGridBox(Cell cell)
         {
-            _gameEngine.AddCellToGrid(cell);
+            var cellExist = _gameEngine.LivingCells.Any(livingCell => livingCell.Equals(cell));
+            if (!cellExist)
+            {
+                _gameEngine.AddCellToGrid(cell);
+            }
+            else
+            {
+                _gameEngine.RemoveCellFromGrid(cell);
+            }
             Render(_gameEngine.LivingCells);
         }
 
@@ -70,7 +78,7 @@ namespace ConwaysGameOfLifeGUI.Renderer
 
         public void Render(IEnumerable<Cell> livingCells)
         {
-            GridBox.Image = GetGridBitmap(livingCells);
+            GridBox.Image = GetGridBitmap(livingCells); 
             GridBox.Refresh();
             SetGenerationNumber(_gameEngine.GetGenerationNumber());
             SetNumberOfLivingCells(_gameEngine.GetNumberOfLivingCells());
@@ -81,7 +89,7 @@ namespace ConwaysGameOfLifeGUI.Renderer
             GridBox.Height = (int) HeightBox.Value;
             GridBox.Width = (int) WidthBox.Value;
             GridBox.Visible = true;
-            _gameEngine.SetGrid(GridBox.Height, GridBox.Width);
+            _gameEngine.SetGrid(GridBox.Height / CellBitmapSize, GridBox.Width / CellBitmapSize);
         }
     }
 }

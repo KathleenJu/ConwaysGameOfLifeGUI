@@ -9,7 +9,7 @@ namespace ConwaysGameOfLifeGUI
         private Grid _grid;
         private readonly DeadEvolutionRules _deadEvolutionRules;
         private readonly LiveEvolutionRules _liveEvolutionRules;
-        public IEnumerable<Cell> LivingCells => _grid.GetLivingCells();
+        public IEnumerable<Cell> LivingCells => _grid.LivingCells;
 
         public GameOfLife()
         {
@@ -67,6 +67,11 @@ namespace ConwaysGameOfLifeGUI
         public void ClearGrid()
         {
             _grid.Clear();
+        }
+
+        public void RemoveCellFromGrid(Cell cell)
+        {
+            _grid.RemoveCell(cell);
         }
     }
 }
