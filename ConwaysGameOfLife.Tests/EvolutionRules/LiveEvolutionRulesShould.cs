@@ -11,7 +11,7 @@ namespace ConwaysGameOfLife.Tests
 {
     public class LiveEvolutionRulesShould
     {
-        private readonly TestHelper _testHelper = new TestHelper();
+        private readonly Helper _testHelper = new Helper();
         private readonly LiveEvolutionRules _rules = new LiveEvolutionRules();
         //private readonly Grid _grid = new Grid(5,5);
 
@@ -31,9 +31,9 @@ namespace ConwaysGameOfLife.Tests
             _testHelper.TransformGraphToCells(graph).ForEach(cell => grid.AddCell(cell));
 
             var allDeadNeighboursOfAliveCells = new List<Cell>();
-            foreach (var livingCell in grid.GetLivingCells())
+            foreach (var livingCell in grid.LivingCells)
             {
-                allDeadNeighboursOfAliveCells.AddRange(grid.GetDeadNeighboursOfALivingCell(livingCell));
+                allDeadNeighboursOfAliveCells.AddRange(grid.GetDeadNeighboursOfACell(livingCell));
             }
 
             int[][] expectedLiveCellsGraph =
@@ -69,9 +69,9 @@ namespace ConwaysGameOfLife.Tests
             _testHelper.TransformGraphToCells(graph).ForEach(cell => grid.AddCell(cell));
 
             var allDeadNeighboursOfAliveCells = new List<Cell>();
-            foreach (var livingCell in grid.GetLivingCells())
+            foreach (var livingCell in grid.LivingCells)
             {
-                allDeadNeighboursOfAliveCells.AddRange(grid.GetDeadNeighboursOfALivingCell(livingCell));
+                allDeadNeighboursOfAliveCells.AddRange(grid.GetDeadNeighboursOfACell(livingCell));
             }            
 
             int[][] expectedLiveCellsGraph =

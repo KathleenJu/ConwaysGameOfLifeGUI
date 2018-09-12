@@ -9,7 +9,7 @@ namespace ConwaysGameOfLifeGUI
         private Grid _grid;
         private readonly DeadEvolutionRules _deadEvolutionRules;
         private readonly LiveEvolutionRules _liveEvolutionRules;
-        public IEnumerable<Cell> LivingCells => _grid.GetLivingCells();
+        public IEnumerable<Cell> LivingCells => _grid.LivingCells;
 
         public GameOfLife()
         {
@@ -19,20 +19,31 @@ namespace ConwaysGameOfLifeGUI
 
         public void Evolve()
         {
-            var allDeadNeighboursOfLiveCells = new List<Cell>();
-            var allLiveNeighboursOfLiveCells = new List<Cell>();
-
-            foreach (var cell in LivingCells)
-            {
-                allDeadNeighboursOfLiveCells.AddRange(_grid.GetDeadNeighboursOfALivingCell(cell));
-                allLiveNeighboursOfLiveCells.AddRange(_grid.GetLiveNeighboursOfALivingCell(cell));
-            }
-
-            var cellsThatShouldLive = _liveEvolutionRules.GetDeadCellsThatShouldLive(allDeadNeighboursOfLiveCells);
-            var cellsThatShouldDie = _deadEvolutionRules.GetLiveCellsThatShouldDie(allLiveNeighboursOfLiveCells);
+            var cellsThatShouldLive = GetCellsThatShouldLive();
+            var cellsThatShouldDie = GetCellsThatShouldDie();
             var newLivingCells = GetNewLivingCells(cellsThatShouldDie, cellsThatShouldLive);
 
             UpdateGrid(newLivingCells);
+        }
+
+        private List<Cell> GetCellsThatShouldDie()
+        {
+            var liveCellsAndItsNeighboursCount = _grid.GetLiveCellsAndItsNumberOfLiveNeighboursDict();
+            var cellsThatShouldDie = _deadEvolutionRules.GetLiveCellsThatShouldDie(liveCellsAndItsNeighboursCount);
+            return cellsThatShouldDie;
+        }
+
+        private List<Cell> GetCellsThatShouldLive()
+        {
+            var allDeadNeighboursOfLiveCells = new List<Cell>();
+
+            foreach (var cell in LivingCells)
+            {
+                allDeadNeighboursOfLiveCells.AddRange(_grid.GetDeadNeighboursOfACell(cell));
+            }
+
+            var cellsThatShouldLive = _liveEvolutionRules.GetDeadCellsThatShouldLive(allDeadNeighboursOfLiveCells);
+            return cellsThatShouldLive;
         }
 
         private List<Cell> GetNewLivingCells(List<Cell> cellsThatShouldDie, List<Cell> cellsThatShouldLive)

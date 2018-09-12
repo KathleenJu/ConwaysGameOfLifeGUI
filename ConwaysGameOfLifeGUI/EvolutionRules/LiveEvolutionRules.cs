@@ -15,5 +15,7 @@ namespace ConwaysGameOfLifeGUI.EvolutionRules
             
             return cellsThatShouldLive;
         }
+
+       
     }
 }

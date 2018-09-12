@@ -89,7 +89,7 @@ namespace ConwaysGameOfLifeGUI.Renderer
             GridBox.Height = (int)HeightBox.Value;
             GridBox.Width = (int)WidthBox.Value;
             GridBox.Visible = true;
-            _gameEngine.SetGrid(GridBox.Height / CellBitmapSize, GridBox.Width / CellBitmapSize);
+            _gameEngine.SetGrid(GridBox.Height, GridBox.Width);
         }
     }
 }

@@ -12,7 +12,7 @@ namespace ConwaysGameOfLife.Tests
 {
     public class GameOfLifeShould
     {
-        private readonly TestHelper _testHelper = new TestHelper();
+        private readonly Helper _testHelper = new Helper();
         private readonly GameOfLife _gameOfLife = new GameOfLife();
 
         [Fact]
@@ -22,8 +22,8 @@ namespace ConwaysGameOfLife.Tests
             int[][] graph =
             {
                 new[]{0, 0, 0, 0, 0},
-                new[]{1, 1, 0, 0, 0},
                 new[]{0, 0, 0, 0, 0},
+                new[]{0, 0, 0, 1, 0},
                 new[]{0, 0, 0, 0, 0},
                 new[]{0, 0, 0, 0, 0}
             };
@@ -80,6 +80,7 @@ namespace ConwaysGameOfLife.Tests
             expectedLiveCells.Should().BeEquivalentTo(actualLivingCells);
             Assert.Equal(4, actualLivingCells.Count());
         }
+
 
         [Fact]
         public void RemoveCellsFromGridWhenMultipleLiveCellsDieAndAddCellsThatShouldBecomeAlive()

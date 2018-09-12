@@ -16,7 +16,7 @@ namespace ConwaysGameOfLife.Tests
 
     public class DeadEvolutionRulesShould
     {
-        private readonly TestHelper _testHelper = new TestHelper();
+        private readonly Helper _testHelper = new Helper();
         private readonly DeadEvolutionRules _rules = new DeadEvolutionRules();
         //private readonly Grid _grid = new Grid(5,5);
 
@@ -36,9 +36,9 @@ namespace ConwaysGameOfLife.Tests
             _testHelper.TransformGraphToCells(graph).ForEach(cell => grid.AddCell(cell));
 
             var allLiveNeighboursOfAliveCells = new List<Cell>();
-            foreach (var livingCell in grid.GetLivingCells())
+            foreach (var livingCell in grid.LivingCells)
             {
-                allLiveNeighboursOfAliveCells.AddRange(grid.GetLiveNeighboursOfALivingCell(livingCell));
+                allLiveNeighboursOfAliveCells.AddRange(grid.GetLiveNeighboursOfACell(livingCell));
             }
 
             int[][] expectedDeadCellsGraph =
@@ -51,7 +51,8 @@ namespace ConwaysGameOfLife.Tests
             };
 
             var expectedDeadCells = _testHelper.TransformGraphToCells(expectedDeadCellsGraph);
-            var actualDeadCells = _rules.GetLiveCellsThatShouldDie(allLiveNeighboursOfAliveCells);
+            var neighboursOfCellsCount = grid.GetLiveCellsAndItsNumberOfLiveNeighboursDict();
+            var actualDeadCells = _rules.GetLiveCellsThatShouldDie(neighboursOfCellsCount);
 
             expectedDeadCells.Should().BeEquivalentTo(actualDeadCells);
             Assert.Equal(2, actualDeadCells.Count);
@@ -73,9 +74,9 @@ namespace ConwaysGameOfLife.Tests
             _testHelper.TransformGraphToCells(graph).ForEach(cell => grid.AddCell(cell));
 
             var allLiveNeighboursOfAliveCells = new List<Cell>();
-            foreach (var livingCell in grid.GetLivingCells())
+            foreach (var livingCell in grid.LivingCells)
             {
-                allLiveNeighboursOfAliveCells.AddRange(grid.GetLiveNeighboursOfALivingCell(livingCell));
+                allLiveNeighboursOfAliveCells.AddRange(grid.GetLiveNeighboursOfACell(livingCell));
             }
 
             int[][] expectedDeadCellsGraph =
@@ -88,48 +89,50 @@ namespace ConwaysGameOfLife.Tests
             };
 
             var expectedDeadCells = _testHelper.TransformGraphToCells(expectedDeadCellsGraph);
-            var actualDeadCells = _rules.GetLiveCellsThatShouldDie(allLiveNeighboursOfAliveCells);
+            var neighboursOfCellsCount = grid.GetLiveCellsAndItsNumberOfLiveNeighboursDict();
+            var actualDeadCells = _rules.GetLiveCellsThatShouldDie(neighboursOfCellsCount);
 
             expectedDeadCells.Should().BeEquivalentTo(actualDeadCells);
             Assert.Equal(2, actualDeadCells.Count);
         }
 
-//        [Fact]
-//        public void GetLiveCellsThatShouldDieWhenTheyHaveNoNeighbours()
-//        {
-//            var grid = new Grid(5, 5);
-//            int[][] graph =
-//            {
-//                new[]{0, 0, 0, 0, 0},
-//                new[]{0, 1, 0, 0, 0},
-//                new[]{0, 0, 0, 0, 0},
-//                new[]{0, 0, 0, 1, 0},
-//                new[]{0, 0, 0, 0, 0}
-//            };
-//
-//            _testHelper.TransformGraphToCells(graph).ForEach(cell => grid.AddCell(cell));
-//
-//            var allLiveNeighboursOfAliveCells = new List<Cell>();
-//            foreach (var livingCell in grid.GetLivingCells())
-//            {
-//                allLiveNeighboursOfAliveCells.AddRange(grid.GetLiveNeighboursOfALivingCell(livingCell));
-//            }
-//
-//            int[][] expectedDeadCellsGraph =
-//            {
-//                new[]{0, 0, 0, 0, 0},
-//                new[]{0, 1, 0, 0, 0},
-//                new[]{0, 0, 0, 0, 0},
-//                new[]{0, 0, 0, 1, 0},
-//                new[]{0, 0, 0, 0, 0}
-//            };
-//
-//            var expectedDeadCells = _testHelper.TransformGraphToCells(expectedDeadCellsGraph);
-//            var actualDeadCells = _rules.GetLiveCellsThatShouldDie(allLiveNeighboursOfAliveCells);
-//
-//            expectedDeadCells.Should().BeEquivalentTo(actualDeadCells);
-//            Assert.Equal(2, actualDeadCells.Count);
-//        }
+        [Fact]
+        public void GetLiveCellsThatShouldDieWhenTheyHaveNoNeighbours()
+        {
+            var grid = new Grid(5, 5);
+            int[][] graph =
+            {
+                new[]{0, 0, 0, 0, 0},
+                new[]{0, 1, 0, 0, 0},
+                new[]{0, 0, 0, 0, 0},
+                new[]{0, 0, 0, 1, 0},
+                new[]{0, 0, 0, 0, 0}
+            };
+        
+            _testHelper.TransformGraphToCells(graph).ForEach(cell => grid.AddCell(cell));
+        
+            var allLiveNeighboursOfAliveCells = new List<Cell>();
+            foreach (var livingCell in grid.LivingCells)
+            {
+                allLiveNeighboursOfAliveCells.AddRange(grid.GetLiveNeighboursOfACell(livingCell));
+            }
+        
+            int[][] expectedDeadCellsGraph =
+            {
+                new[]{0, 0, 0, 0, 0},
+                new[]{0, 1, 0, 0, 0},
+                new[]{0, 0, 0, 0, 0},
+                new[]{0, 0, 0, 1, 0},
+                new[]{0, 0, 0, 0, 0}
+            };
+        
+            var expectedDeadCells = _testHelper.TransformGraphToCells(expectedDeadCellsGraph);
+            var neighboursOfCellsCount = grid.GetLiveCellsAndItsNumberOfLiveNeighboursDict();
+            var actualDeadCells = _rules.GetLiveCellsThatShouldDie(neighboursOfCellsCount);
+
+            expectedDeadCells.Should().BeEquivalentTo(actualDeadCells);
+            Assert.Equal(2, actualDeadCells.Count);
+        }
 
         [Fact]
         public void GetNoLiveCellThatShouldDieWhenTheyHaveTwoOrThreeNeighbours()
@@ -147,9 +150,9 @@ namespace ConwaysGameOfLife.Tests
             _testHelper.TransformGraphToCells(graph).ForEach(cell => grid.AddCell(cell));
 
             var allLiveNeighboursOfAliveCells = new List<Cell>();
-            foreach (var livingCell in grid.GetLivingCells())
+            foreach (var livingCell in grid.LivingCells)
             {
-                allLiveNeighboursOfAliveCells.AddRange(grid.GetLiveNeighboursOfALivingCell(livingCell));
+                allLiveNeighboursOfAliveCells.AddRange(grid.GetLiveNeighboursOfACell(livingCell));
             }
 
             int[][] expectedDeadCellsGraph =
@@ -162,7 +165,8 @@ namespace ConwaysGameOfLife.Tests
             };
 
             var expectedDeadCells = _testHelper.TransformGraphToCells(expectedDeadCellsGraph);
-            var actualDeadCells = _rules.GetLiveCellsThatShouldDie(allLiveNeighboursOfAliveCells);
+            var neighboursOfCellsCount = grid.GetLiveCellsAndItsNumberOfLiveNeighboursDict();
+            var actualDeadCells = _rules.GetLiveCellsThatShouldDie(neighboursOfCellsCount);
 
             expectedDeadCells.Should().BeEquivalentTo(actualDeadCells);
             Assert.Empty(actualDeadCells);

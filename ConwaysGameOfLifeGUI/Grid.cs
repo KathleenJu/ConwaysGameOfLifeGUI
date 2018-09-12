@@ -8,17 +8,13 @@ namespace ConwaysGameOfLifeGUI
         public int Height { get; private set; }
         public int Width { get; private set; }
         private readonly List<Cell> _livingCells;
+        public IEnumerable<Cell> LivingCells => _livingCells;
 
         public Grid(int height, int width)
         {
             Height = height;
             Width = width;
             _livingCells = new List<Cell>();
-        }
-
-        public IEnumerable<Cell> GetLivingCells()
-        {
-            return _livingCells;
         }
 
         public void AddCell(Cell cell)
@@ -48,23 +44,23 @@ namespace ConwaysGameOfLifeGUI
             _livingCells.Clear();
         }
 
-        public Dictionary<Cell, int> GetCellsAndItsNumberOfLiveNeighboursDict(List<Cell> livingCells)
+        public Dictionary<Cell, int> GetLiveCellsAndItsNumberOfLiveNeighboursDict()
         {
             var dict = new Dictionary<Cell, int>();
-            foreach (var livingCell in livingCells)
+            foreach (var livingCell in LivingCells)
             {
-                dict.Add(livingCell, GetLiveNeighboursOfALivingCell(livingCell).Count());
+                dict.Add(livingCell, GetLiveNeighboursOfACell(livingCell).Count());
             }
             return dict;
         }
-
-        public IEnumerable<Cell> GetLiveNeighboursOfALivingCell(Cell cellTarget)
+      
+        public IEnumerable<Cell> GetLiveNeighboursOfACell(Cell cellTarget)
         {
             var allNeighbourOfCell = GetAllNeighboursOfLivingCell(cellTarget);
             return allNeighbourOfCell.Where(neighbourCell => _livingCells.Any(livingCell => livingCell.Equals(neighbourCell)));
         }
 
-        public IEnumerable<Cell> GetDeadNeighboursOfALivingCell(Cell cellTarget)
+        public IEnumerable<Cell> GetDeadNeighboursOfACell(Cell cellTarget)
         {
             var allNeighbourOfCell = GetAllNeighboursOfLivingCell(cellTarget);
             return allNeighbourOfCell.Where(neighbourCell => !_livingCells.Any(livingCell => livingCell.Equals(neighbourCell)));

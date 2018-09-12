@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using ConwaysGameOfLifeGUI;
 
 namespace ConwaysGameOfLife.Tests
 {
-    public class TestHelper
+    public class Helper
     {
         public List<Cell> TransformGraphToCells(int[][] graph)
         {
@@ -12,8 +13,7 @@ namespace ConwaysGameOfLife.Tests
             {
                 for (int columnIndex = 0; columnIndex < graph[rowIndex].Length; columnIndex++)
                 {
-                    var aliveCell = 1;
-                    if (graph[rowIndex][columnIndex] == aliveCell)
+                    if (graph[rowIndex][columnIndex] == 1)
                     {
                         cells.Add(new Cell(rowIndex, columnIndex));
                     }
@@ -21,5 +21,13 @@ namespace ConwaysGameOfLife.Tests
             }
             return cells;
         }
+
+        public string ToAssertableString(Dictionary<Cell, int> dictionary)
+        {
+            var assertableString = dictionary.OrderBy(p => p.Key)
+                .Select(p => p.Key + ": " + string.Join(", ", p.Value)).ToString();
+            return assertableString;
+        }
+
     }
 }

@@ -17,5 +17,14 @@ namespace ConwaysGameOfLifeGUI.EvolutionRules
 
             return cellsThatShouldDie;
         }
+
+        public List<Cell> GetLiveCellsThatShouldDie(Dictionary<Cell, int> cellsAndItsNumberOfNeighboursDict)
+        {
+            var cellsThatShouldDie = cellsAndItsNumberOfNeighboursDict
+                .Where(cell => cell.Value < _minimumNeighboursNeededtoLive || cell.Value > _maximumNeighboursNeededtoLive)
+                .Select(cell => new Cell(cell.Key.Row, cell.Key.Column)).ToList();
+
+            return cellsThatShouldDie;
+        }
     }
 }
