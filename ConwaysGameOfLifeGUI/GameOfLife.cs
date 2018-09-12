@@ -24,8 +24,8 @@ namespace ConwaysGameOfLifeGUI
 
             foreach (var cell in LivingCells)
             {
-                allDeadNeighboursOfLiveCells.AddRange(_grid.GetDeadNeighboursOfLivingCell(cell));
-                allLiveNeighboursOfLiveCells.AddRange(_grid.GetLiveNeighboursOfLivingCell(cell));
+                allDeadNeighboursOfLiveCells.AddRange(_grid.GetDeadNeighboursOfALivingCell(cell));
+                allLiveNeighboursOfLiveCells.AddRange(_grid.GetLiveNeighboursOfALivingCell(cell));
             }
 
             var cellsThatShouldLive = _liveEvolutionRules.GetDeadCellsThatShouldLive(allDeadNeighboursOfLiveCells);
@@ -67,6 +67,11 @@ namespace ConwaysGameOfLifeGUI
         public void ClearGrid()
         {
             _grid.Clear();
+        }
+
+        public void RemoveCellToGrid(Cell cell)
+        {
+            _grid.RemoveCell(cell);
         }
     }
 }

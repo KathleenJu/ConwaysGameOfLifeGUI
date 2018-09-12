@@ -52,7 +52,7 @@ namespace ConwaysGameOfLifeGUI.Renderer
 
         private void UpgradeGridBox(Cell cell)
         {
-            _gameEngine.AddLivingCell(cell);
+            _gameEngine.AddCellToGrid(cell);
             Render(GetGridBitmap(_gameEngine.LivingCells));
         }
 

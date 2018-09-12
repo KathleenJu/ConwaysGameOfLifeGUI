@@ -52,11 +52,15 @@ namespace ConwaysGameOfLifeGUI
         {
             return _numberOfLivingCells;
         }
-
-        //updategridWithCell?
-        public void AddLivingCell(Cell cell)
+       
+        public void AddCellToGrid(Cell cell)
         {
             _gameOfLife.AddCellToGrid(cell);
+        }
+
+        public void RemoveCellToGrid(Cell cell)
+        {
+            _gameOfLife.RemoveCellToGrid(cell);
         }
 
         public void ClearGrid()

@@ -29,6 +29,14 @@ namespace ConwaysGameOfLifeGUI
             }
         }
 
+        public void RemoveCell(Cell cell)
+        {
+            if (_livingCells.Any(c => c.Equals(cell)))
+            {
+                _livingCells.Remove(cell);
+            }
+        }
+
         public void UpdateGridSize(int height, int width)
         {
             Height = height;
@@ -40,13 +48,23 @@ namespace ConwaysGameOfLifeGUI
             _livingCells.Clear();
         }
 
-        public IEnumerable<Cell> GetLiveNeighboursOfLivingCell(Cell cellTarget)
+        public Dictionary<Cell, int> GetCellsAndItsNumberOfLiveNeighboursDict(List<Cell> livingCells)
+        {
+            var dict = new Dictionary<Cell, int>();
+            foreach (var livingCell in livingCells)
+            {
+                dict.Add(livingCell, GetLiveNeighboursOfALivingCell(livingCell).Count());
+            }
+            return dict;
+        }
+
+        public IEnumerable<Cell> GetLiveNeighboursOfALivingCell(Cell cellTarget)
         {
             var allNeighbourOfCell = GetAllNeighboursOfLivingCell(cellTarget);
             return allNeighbourOfCell.Where(neighbourCell => _livingCells.Any(livingCell => livingCell.Equals(neighbourCell)));
         }
 
-        public IEnumerable<Cell> GetDeadNeighboursOfLivingCell(Cell cellTarget)
+        public IEnumerable<Cell> GetDeadNeighboursOfALivingCell(Cell cellTarget)
         {
             var allNeighbourOfCell = GetAllNeighboursOfLivingCell(cellTarget);
             return allNeighbourOfCell.Where(neighbourCell => !_livingCells.Any(livingCell => livingCell.Equals(neighbourCell)));
