@@ -42,15 +42,13 @@ namespace ConwaysGameOfLifeGUI
         public IEnumerable<Cell> GetLiveNeighboursOfLivingCell(Cell cellTarget)
         {
             var allNeighbourOfCell = GetAllNeighboursOfLivingCell(cellTarget);
-            var allLivingNeighboursOfCell = allNeighbourOfCell.Where(neighbourCell => LivingCells.Any(livingCell => livingCell.Equals(neighbourCell)));
-            return allLivingNeighboursOfCell;
+            return allNeighbourOfCell.Where(neighbourCell => LivingCells.Any(livingCell => livingCell.Equals(neighbourCell)));
         }
 
         public IEnumerable<Cell> GetDeadNeighboursOfLivingCell(Cell cellTarget)
         {
             var allNeighbourOfCell = GetAllNeighboursOfLivingCell(cellTarget);
-            var allDeadNeighboursOfCell = allNeighbourOfCell.Where(neighbourCell => !LivingCells.Any(livingCell => livingCell.Equals(neighbourCell)));
-            return allDeadNeighboursOfCell;
+            return allNeighbourOfCell.Where(neighbourCell => !LivingCells.Any(livingCell => livingCell.Equals(neighbourCell)));
         }
 
         public IEnumerable<Cell> GetAllNeighboursOfLivingCell(Cell cellTarget)

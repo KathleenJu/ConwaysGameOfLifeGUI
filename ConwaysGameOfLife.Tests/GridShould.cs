@@ -14,221 +14,197 @@ namespace ConwaysGameOfLife.Tests
 {
     public class GridShould
     {
+        private readonly TestHelper _testHelper = new TestHelper();
         [Fact]
         public void GetTheLivingNeighboursOfALivingCell()
         {
             var grid = new Grid(5, 5);
-            var cellTarget = new Cell(1, 1);
-            grid.AddCell(cellTarget);
-            grid.AddCell(new Cell(0, 1));
-            grid.AddCell(new Cell(1, 2));
-            grid.AddCell(new Cell(0, 2));
-            var expectedNeighbourCells = new List<Cell>
+            int[][] graph =
             {
-                new Cell(0, 1),
-                new Cell(0, 2),
-                new Cell(1, 2)
+                new[]{0, 1, 1, 0, 0},
+                new[]{0, 1, 1, 0, 0},
+                new[]{0, 0, 0, 0, 0},
+                new[]{0, 0, 0, 0, 0},
+                new[]{0, 0, 0, 0, 0}
             };
-            var actualNeighbourCells = grid.GetLiveNeighboursOfLivingCell(cellTarget);
 
-            expectedNeighbourCells.Should().BeEquivalentTo(actualNeighbourCells);
-            Assert.Equal(3, actualNeighbourCells.Count());
+            _testHelper.TransformGraphToCells(graph).ForEach(cell => grid.AddCell(cell));
+
+            int[][] expectedLiveNeighbourGraph =
+            {
+                new[]{0, 1, 1, 0, 0},
+                new[]{0, 0, 1, 0, 0},
+                new[]{0, 0, 0, 0, 0},
+                new[]{0, 0, 0, 0, 0},
+                new[]{0, 0, 0, 0, 0}
+            };
+  
+            var expectedLiveNeighbours= _testHelper.TransformGraphToCells(expectedLiveNeighbourGraph);
+            var cellTarget = new Cell(1, 1);
+            var actualLiveNeighbours = grid.GetLiveNeighboursOfLivingCell(cellTarget);
+
+            expectedLiveNeighbours.Should().BeEquivalentTo(actualLiveNeighbours);
+            Assert.Equal(3, actualLiveNeighbours.Count());
         }
 
         [Fact]
         public void GetTheLivingNeighboursOfASingleLivingCell()
-        {
+        {           
             var grid = new Grid(5, 5);
-            var cellTarget = new Cell(1, 1);
-            grid.AddCell(cellTarget);
-            var expectedNeighbourCells = new List<Cell>();
-            var actualNeighbourCells = grid.GetLiveNeighboursOfLivingCell(cellTarget);
-
-            expectedNeighbourCells.Should().BeEquivalentTo(actualNeighbourCells);
-            Assert.Empty(actualNeighbourCells);
-        }
-
-        [Fact]
-        public void GetTheLivingNeighboursOfALivingCellWithSparseNeighbours()
-        {
-            var grid = new Grid(5, 5);
-            var cellTarget = new Cell(1, 1);
-            grid.AddCell(cellTarget);
-            grid.AddCell(new Cell(1, 2));
-            grid.AddCell(new Cell(4, 4));
-            grid.AddCell(new Cell(1, 3));
-            grid.AddCell(new Cell(3, 1));
-            grid.AddCell(new Cell(0, 2));
-            var expectedNeighbourCells = new List<Cell>
+            int[][] graph =
             {
-                new Cell(0, 2),
-                new Cell(1, 2)
+                new[]{0, 0, 0, 0, 0},
+                new[]{0, 1, 0, 0, 0},
+                new[]{0, 0, 0, 0, 0},
+                new[]{0, 0, 0, 0, 0},
+                new[]{0, 0, 0, 0, 0}
             };
-            var actualNeighbourCells = grid.GetLiveNeighboursOfLivingCell(cellTarget);
 
-            expectedNeighbourCells.Should().BeEquivalentTo(actualNeighbourCells);
-            Assert.Equal(2, actualNeighbourCells.Count());
+            _testHelper.TransformGraphToCells(graph).ForEach(cell => grid.AddCell(cell));
+
+            int[][] expectedLiveNeighboursGraph =
+            {
+                new[]{0, 0, 0, 0, 0},
+                new[]{0, 0, 0, 0, 0},
+                new[]{0, 0, 0, 0, 0},
+                new[]{0, 0, 0, 0, 0},
+                new[]{0, 0, 0, 0, 0}
+            };
+
+            var expectedLiveNeighbours = _testHelper.TransformGraphToCells(expectedLiveNeighboursGraph);
+            var cellTarget = new Cell(1, 1);
+            var actualLiveNeighbours = grid.GetLiveNeighboursOfLivingCell(cellTarget);
+
+            expectedLiveNeighbours.Should().BeEquivalentTo(actualLiveNeighbours);
+            Assert.Empty(actualLiveNeighbours);
         }
 
         [Fact]
         public void GetTheLivingNeighboursOfALivingCellOnEdgeOfTheGrid()
         {
             var grid = new Grid(5, 5);
-            var cellTarget = new Cell(2, 4);
-            grid.AddCell(cellTarget);
-            grid.AddCell(new Cell(2, 0));
-            grid.AddCell(new Cell(2, 3));
-            grid.AddCell(new Cell(0, 0));
-            grid.AddCell(new Cell(3, 4));
-            var expectedNeighbourCells = new List<Cell>
+            int[][] graph =
             {
-                new Cell(2, 0),
-                new Cell(2, 3),
-                new Cell(3, 4)
+                new[]{0, 0, 0, 0, 0},
+                new[]{1, 0, 0, 0, 0},
+                new[]{1, 0, 0, 1, 1},
+                new[]{0, 0, 0, 0, 1},
+                new[]{0, 0, 0, 0, 0}
             };
-            var actualNeighbourCells = grid.GetLiveNeighboursOfLivingCell(cellTarget);
 
-            expectedNeighbourCells.Should().BeEquivalentTo(actualNeighbourCells);
-            Assert.Equal(3, actualNeighbourCells.Count());
+            _testHelper.TransformGraphToCells(graph).ForEach(cell => grid.AddCell(cell));
+
+            int[][] expectedLiveNeighboursGraph =
+            {
+                new[]{0, 0, 0, 0, 0},
+                new[]{1, 0, 0, 0, 0},
+                new[]{1, 0, 0, 1, 0},
+                new[]{0, 0, 0, 0, 1},
+                new[]{0, 0, 0, 0, 0}
+            };
+
+            var expectedLiveNeighbours = _testHelper.TransformGraphToCells(expectedLiveNeighboursGraph);
+            var cellTarget = new Cell(2, 4);
+            var actualLiveNeighbours = grid.GetLiveNeighboursOfLivingCell(cellTarget);
+
+
+            expectedLiveNeighbours.Should().BeEquivalentTo(actualLiveNeighbours);
+            Assert.Equal(4, actualLiveNeighbours.Count());
         }
 
         [Fact]
         public void GetTheLivingNeighboursOfALivingCellOnACorner()
         {
-            var grid = new Grid(4, 4);
-            var cellTarget = new Cell(3, 0);
-            grid.AddCell(cellTarget);
-            grid.AddCell(new Cell(0, 0));
-            grid.AddCell(new Cell(0, 1));
-            grid.AddCell(new Cell(2, 0));
-            grid.AddCell(new Cell(3, 1));
-            grid.AddCell(new Cell(0, 3));
-            grid.AddCell(new Cell(2, 3));
-            grid.AddCell(new Cell(3, 3));
-            grid.AddCell(new Cell(0, 2));
-            grid.AddCell(new Cell(1, 3));
-            var expectedNeighbourCells = new List<Cell>
+            var grid = new Grid(5, 5);
+            int[][] graph =
             {
-                new Cell(0, 0),
-                new Cell(0, 1),
-                new Cell(2, 0),
-                new Cell(3, 1),
-                new Cell(0, 3),
-                new Cell(2, 3),
-                new Cell(3, 3)
+                new[]{1, 1, 0, 0, 1},
+                new[]{1, 0, 0, 0, 0},
+                new[]{0, 0, 0, 0, 0},
+                new[]{0, 0, 0, 0, 0},
+                new[]{0, 1, 0, 0, 1}
             };
-            var actualNeighbourCells = grid.GetLiveNeighboursOfLivingCell(cellTarget);
 
-            expectedNeighbourCells.Should().BeEquivalentTo(actualNeighbourCells);
-            Assert.Equal(7, actualNeighbourCells.Count());
+            _testHelper.TransformGraphToCells(graph).ForEach(cell => grid.AddCell(cell));
+
+            int[][] expectedLiveNeighboursGraph =
+            {
+                new[]{0, 1, 0, 0, 1},
+                new[]{1, 0, 0, 0, 0},
+                new[]{0, 0, 0, 0, 0},
+                new[]{0, 0, 0, 0, 0},
+                new[]{0, 1, 0, 0, 1}
+            };
+
+            var expectedLiveNeighbours = _testHelper.TransformGraphToCells(expectedLiveNeighboursGraph);
+            var cellTarget = new Cell(0, 0);
+            var actualLiveNeighbours = grid.GetLiveNeighboursOfLivingCell(cellTarget);
+
+            expectedLiveNeighbours.Should().BeEquivalentTo(actualLiveNeighbours);
+            Assert.Equal(5, actualLiveNeighbours.Count());
         }
-
-
         [Fact]
-        public void AddCellIfDoesNotExistInLivingCells()
+        public void GetTheDeadNeighboursOfCell()
         {
             var grid = new Grid(5, 5);
-            var cellTarget = new Cell(1, 1);
-            grid.AddCell(cellTarget);
-            grid.AddCell(new Cell(1, 2));
-            var expectedNeighbourCells = new List<Cell> { new Cell(1, 1), new Cell(1, 2) };
-            var actualNeighbourCells = grid.GetLivingCells();
-
-            expectedNeighbourCells.Should().BeEquivalentTo(actualNeighbourCells);
-            Assert.Equal(2, grid.GetLivingCells().Count());
-        }
-
-        [Fact]
-        public void NotAddCelIfAlreadyExist()
-        {
-            var grid = new Grid(5, 5);
-            var cellTarget = new Cell(1, 1);
-            grid.AddCell(cellTarget);
-            grid.AddCell(new Cell(1, 1));
-
-            Assert.Single(grid.GetLivingCells());
-        }
-
-        [Fact]
-        public void ClearAllLivingCellsOfTheGrid()
-        {
-            var grid = new Grid(5, 5);
-            var cellTarget = new Cell(1, 1);
-            grid.AddCell(cellTarget);
-            grid.AddCell(new Cell(1, 1));
-            grid.Clear();
-
-            Assert.Empty(grid.GetLivingCells());
-        }
-
-        [Fact]
-        public void GetAllEightNeighbourOfCell()
-        {
-            var grid = new Grid(4, 4);
-            var cellTarget = new Cell(1, 1);
-            var expectedNeighbourCells = new List<Cell>
+            int[][] graph =
             {
-                new Cell(0, 0),
-                new Cell(0, 1),
-                new Cell(0, 2),
-                new Cell(1, 0),
-                new Cell(1, 2),
-                new Cell(2, 0),
-                new Cell(2, 1),
-                new Cell(2, 2)
+                new[]{1, 1, 0, 0, 0},
+                new[]{1, 1, 0, 0, 0},
+                new[]{0, 0, 0, 0, 0},
+                new[]{0, 0, 0, 0, 0},
+                new[]{0, 0, 0, 0, 0}
             };
-            var actualNeighbourCells = grid.GetAllNeighboursOfLivingCell(cellTarget);
 
-            expectedNeighbourCells.Should().BeEquivalentTo(actualNeighbourCells);
-            Assert.Equal(8, actualNeighbourCells.Count());
-        }
+            _testHelper.TransformGraphToCells(graph).ForEach(cell => grid.AddCell(cell));
 
-        [Fact]
-        public void GetAllEightNeighbourOfCellInACorner()
-        {
-            var grid = new Grid(4, 4);
-            var cellTarget = new Cell(3, 0);
-            var expectedNeighbourCells = new List<Cell>
+            int[][] expectedNeighbourCellsGraph =
             {
-                new Cell(0, 0),
-                new Cell(0, 1),
-                new Cell(2, 0),
-                new Cell(2, 1),
-                new Cell(3, 1),
-                new Cell(0, 3),
-                new Cell(2, 3),
-                new Cell(3, 3)
+                new[]{0, 0, 1, 0, 0},
+                new[]{0, 0, 1, 0, 0},
+                new[]{1, 1, 1, 0, 0},
+                new[]{0, 0, 0, 0, 0},
+                new[]{0, 0, 0, 0, 0}
             };
-            var actualNeighbourCells = grid.GetAllNeighboursOfLivingCell(cellTarget);
 
-            expectedNeighbourCells.Should().BeEquivalentTo(actualNeighbourCells);
-            Assert.Equal(8, actualNeighbourCells.Count());
+            var expectedDeadNeighbours = _testHelper.TransformGraphToCells(expectedNeighbourCellsGraph);
+            var cellTarget = new Cell(1, 1);
+            var actualDeadNeighbours = grid.GetDeadNeighboursOfLivingCell(cellTarget);
+
+            expectedDeadNeighbours.Should().BeEquivalentTo(expectedDeadNeighbours);
+            Assert.Equal(5, actualDeadNeighbours.Count());
         }
 
         [Fact]
         public void GetTheDeadNeighboursOfCellInACorner()
         {
-            var grid = new Grid(4, 4);
-            var cellTarget = new Cell(1, 1);
-            grid.AddCell(cellTarget);
-            grid.AddCell(new Cell(0, 1));
-            grid.AddCell(new Cell(0, 0));
-            grid.AddCell(new Cell(1, 0));
-
-            var expectedDeadNeighbours = new List<Cell>
+            var grid = new Grid(5, 5);
+            int[][] graph =
             {
-                new Cell(0, 2),
-                new Cell(1, 2),
-                new Cell(2, 0),
-                new Cell(2, 1),
-                new Cell(2, 2)
+                new[]{1, 1, 0, 0, 0},
+                new[]{1, 1, 0, 0, 0},
+                new[]{0, 0, 0, 0, 0},
+                new[]{0, 0, 0, 0, 0},
+                new[]{0, 0, 0, 0, 0}
             };
-            var actualDeadNeighboursOfCell = grid.GetDeadNeighboursOfLivingCell(cellTarget);
+
+            _testHelper.TransformGraphToCells(graph).ForEach(cell => grid.AddCell(cell));
+
+            int[][] expectedNeighbourCellsGraph =
+            {
+                new[]{0, 0, 0, 0, 1},
+                new[]{0, 0, 0, 0, 0},
+                new[]{0, 0, 0, 0, 0},
+                new[]{0, 0, 0, 0, 0},
+                new[]{1, 1, 0, 0, 1}
+            };
+
+            var expectedDeadNeighbours = _testHelper.TransformGraphToCells(expectedNeighbourCellsGraph);
+            var cellTarget = new Cell(1, 1);
+            var actualDeadNeighbours = grid.GetDeadNeighboursOfLivingCell(cellTarget);
 
             expectedDeadNeighbours.Should().BeEquivalentTo(expectedDeadNeighbours);
-            Assert.Equal(5, actualDeadNeighboursOfCell.Count());
+            Assert.Equal(5, actualDeadNeighbours.Count());
         }
-
-
     }
 }

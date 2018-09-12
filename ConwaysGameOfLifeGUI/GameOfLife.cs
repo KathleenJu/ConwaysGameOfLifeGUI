@@ -19,24 +19,23 @@ namespace ConwaysGameOfLifeGUI
 
         public void Evolve()
         {
-            //flatten list
-            var allDeadNeighboursOfLiveCell = new List<IEnumerable<Cell>>();
-            var allLiveNeighboursOfLiveCell = new List<IEnumerable<Cell>>();
+            var allDeadNeighboursOfLiveCells = new List<Cell>();
+            var allLiveNeighboursOfLiveCell = new List<Cell>();
 
             foreach (var cell in LivingCells)
             {
-                allDeadNeighboursOfLiveCell.Add(Grid.GetDeadNeighboursOfLivingCell(cell));
-                allLiveNeighboursOfLiveCell.Add(Grid.GetLiveNeighboursOfLivingCell(cell));
+                allDeadNeighboursOfLiveCells.AddRange(Grid.GetDeadNeighboursOfLivingCell(cell));
+                allLiveNeighboursOfLiveCell.AddRange(Grid.GetLiveNeighboursOfLivingCell(cell));
             }
 
-            var cellsThatShouldLive = _liveEvolutionRules.GetDeadCellsThatShouldLive(allDeadNeighboursOfLiveCell);
-            var cellsThatShouldDie = _deadEvolutionRules.GetLiveCellsThatShouldDie(allLiveNeighboursOfLiveCell, LivingCells);
-            var newLivingCells = cellsThatShouldLive.Except(cellsThatShouldDie).ToList();
+            var cellsThatShouldLive = _liveEvolutionRules.GetDeadCellsThatShouldLive(allDeadNeighboursOfLiveCells);
+            var cellsThatShouldDie = _deadEvolutionRules.GetLiveCellsThatShouldDie(allLiveNeighboursOfLiveCell);
 
-            UpdateGrid(newLivingCells, cellsThatShouldDie);
+            var newLivingCells = LivingCells.ToList().Where(cell => !cellsThatShouldDie.Any(x => cell.Row == x.Row && cell.Column == x.Column)).Concat(cellsThatShouldLive);
+            UpdateGrid(newLivingCells.ToList());
         }
 
-        private void UpdateGrid(List<Cell> newLivingCells, List<Cell> cellsThatShouldDie)
+        private void UpdateGrid(List<Cell> newLivingCells)
         {
             Grid.Clear();
             newLivingCells.ForEach(cell => { Grid.AddCell(cell); });
