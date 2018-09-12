@@ -31,8 +31,8 @@ namespace ConwaysGameOfLifeGUI
             var cellsThatShouldLive = _liveEvolutionRules.GetDeadCellsThatShouldLive(allDeadNeighboursOfLiveCells);
             var cellsThatShouldDie = _deadEvolutionRules.GetLiveCellsThatShouldDie(allLiveNeighboursOfLiveCell);
 
-            var newLivingCells = LivingCells.ToList().Where(cell => !cellsThatShouldDie.Any(x => cell.Row == x.Row && cell.Column == x.Column)).Concat(cellsThatShouldLive);
-            UpdateGrid(newLivingCells.ToList());
+            var newLivingCells = LivingCells.Where(cell => !cellsThatShouldDie.Any(x => cell.Row == x.Row && cell.Column == x.Column)).Concat(cellsThatShouldLive).ToList();
+            UpdateGrid(newLivingCells);
         }
 
         private void UpdateGrid(List<Cell> newLivingCells)
@@ -46,15 +46,14 @@ namespace ConwaysGameOfLifeGUI
             Grid = new Grid(height, width);
         }
 
-        public void AddLivingCell(Cell cell)
+        public void AddCellToGrid(Cell cell)
         {
             Grid.AddCell(cell);
         }
 
-        public void SetInitialStateOfGrid(List<Cell> initialLivingCells)
-        {//upgradeGrid()
-            initialLivingCells.ForEach(cell => Grid.AddCell(cell));
+        public void ClearGrid()
+        {
+            Grid.Clear();
         }
-
     }
 }

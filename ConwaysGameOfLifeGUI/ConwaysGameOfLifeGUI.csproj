@@ -49,7 +49,6 @@
     <Compile Include="Cell.cs" />
     <Compile Include="EvolutionRules\DeadEvolutionRules.cs" />
     <Compile Include="GameEngine.cs" />
-    <Compile Include="Renderer\ConsoleRenderer.cs" />
     <Compile Include="Renderer\GUIRenderer.cs">
       <SubType>Form</SubType>
     </Compile>

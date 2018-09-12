@@ -28,7 +28,7 @@ namespace ConwaysGameOfLife.Tests
                 new[]{0, 0, 0, 0, 0}
             };
 
-            _testHelper.TransformGraphToCells(graph).ForEach(cell => _gameOfLife.AddLivingCell(cell));
+            _testHelper.TransformGraphToCells(graph).ForEach(cell => _gameOfLife.AddCellToGrid(cell));
 
             _gameOfLife.Evolve();
 
@@ -61,7 +61,7 @@ namespace ConwaysGameOfLife.Tests
                 new[]{0, 0, 0, 0, 0}
             };
 
-            _testHelper.TransformGraphToCells(graph).ForEach(cell => _gameOfLife.AddLivingCell(cell));
+            _testHelper.TransformGraphToCells(graph).ForEach(cell => _gameOfLife.AddCellToGrid(cell));
 
             _gameOfLife.Evolve();
 
@@ -94,7 +94,7 @@ namespace ConwaysGameOfLife.Tests
                 new[]{0, 0, 0, 0, 0}
             };
 
-            _testHelper.TransformGraphToCells(graph).ForEach(cell => _gameOfLife.AddLivingCell(cell));
+            _testHelper.TransformGraphToCells(graph).ForEach(cell => _gameOfLife.AddCellToGrid(cell));
 
             _gameOfLife.Evolve();
 

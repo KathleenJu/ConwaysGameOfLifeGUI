@@ -31,6 +31,7 @@ namespace ConwaysGameOfLifeGUI.Renderer
         private void InitializeComponent()
         {
             this.GridBox = new System.Windows.Forms.PictureBox();
+            
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.WidthBox = new System.Windows.Forms.NumericUpDown();
@@ -229,6 +230,7 @@ namespace ConwaysGameOfLifeGUI.Renderer
             // GuiRenderer
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
+            this.Load += new System.EventHandler(this.GuiRenderer_Load);
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.ClientSize = new System.Drawing.Size(1004, 937);
             this.Controls.Add(this.GridBox);

@@ -12,14 +12,16 @@ namespace ConwaysGameOfLifeGUI.Renderer
     {
         private const int CellSize = 10;
         private readonly GameEngine _gameEngine;
-        private readonly List<Cell> _initialCells;
-        
 
         public GuiRenderer(GameEngine gameEngine)
         {
             InitializeComponent();          
             _gameEngine = gameEngine;
-            _initialCells = new List<Cell>();
+        }
+
+        public void GuiRenderer_Load(object sender, EventArgs e)
+        {
+            _gameEngine.SetGridSize((int)HeightBox.Value, (int)WidthBox.Value);
         }
 
         public void SetGenerationNumber(int generation)
@@ -34,7 +36,7 @@ namespace ConwaysGameOfLifeGUI.Renderer
             NoOfLivingCells.Refresh();
         }
 
-        public Bitmap GetBitmapDrawing(IEnumerable<Cell> livingCells)
+        public Bitmap GetGridBitmap(IEnumerable<Cell> livingCells)
         {
             var bitmap = new Bitmap(GridBox.Width, GridBox.Height);
             var graphics = Graphics.FromImage(bitmap);
@@ -68,32 +70,36 @@ namespace ConwaysGameOfLifeGUI.Renderer
         private void UpgradeGridBox(Cell cell)
         {
             _gameEngine.AddLivingCell(cell);
-            SetNumberOfLivingCells(_gameEngine.LivingCells.Count());
-            Render(GetBitmapDrawing(_gameEngine.LivingCells));
+            Render(GetGridBitmap(_gameEngine.LivingCells));
         }
 
         private void ClearGridButton_Click(object sender, EventArgs e)
         {
-            _initialCells.Clear();
-            SetNumberOfLivingCells(_gameEngine.GetNumberOfLivingCells());
+            _gameEngine.ClearGrid();
             Render(new Bitmap(GridBox.Width, GridBox.Height));
         }
 
         private void StartGameButton_Click(object sender, EventArgs e)
         {
-            //When form load setGrid...
             _gameEngine.SetGridSize((int)HeightBox.Value, (int)WidthBox.Value);
-           // _gameEngine.SetInitialStateOfGrid(_initialCells);
-            _gameEngine.StartGame();
-            Render(GetBitmapDrawing(_gameEngine.LivingCells));
-            //SetGenerationNumber(_gameEngine.GetGenerationNumber());
-            //SetNumberOfLivingCells(_gameEngine.GetNumberOfLivingCells());
+            Action<IEnumerable<Cell>> renderAction = RenderAction;
+            _gameEngine.StartGame(renderAction);        
+        }
+
+        private void RenderAction(IEnumerable<Cell> gameEngineLivingCells)
+        {
+            GridBox.Image = GetGridBitmap(gameEngineLivingCells);
+            GridBox.Refresh();
+            SetGenerationNumber(_gameEngine.GetGenerationNumber());
+            SetNumberOfLivingCells(_gameEngine.GetNumberOfLivingCells());
         }
 
         public void Render(Bitmap bitmap)
-        {
+        {          
             GridBox.Image = bitmap;
             GridBox.Refresh();
+            SetGenerationNumber(_gameEngine.GetGenerationNumber());
+            SetNumberOfLivingCells(_gameEngine.GetNumberOfLivingCells());
         }    
     }
 }

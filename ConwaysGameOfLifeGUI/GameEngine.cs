@@ -12,7 +12,6 @@ namespace ConwaysGameOfLifeGUI
         private int _generationNumber;
         private int _numberOfLivingCells;
         private readonly GameOfLife _gameOfLife;
-
         public IEnumerable<Cell> LivingCells => _gameOfLife.LivingCells;
 
         public GameEngine(GameOfLife gameOfLife)
@@ -20,13 +19,14 @@ namespace ConwaysGameOfLifeGUI
             _gameOfLife = gameOfLife;
         }
 
-        public void StartGame()
+        public void StartGame(Action<IEnumerable<Cell>> renderAction)
         {
             _generationNumber = 1;
             _numberOfLivingCells = _gameOfLife.LivingCells.Count();
             while (true)
             {  
                 _gameOfLife.Evolve();
+                renderAction(_gameOfLife.LivingCells);
                 _generationNumber += 1;
                 _numberOfLivingCells = _gameOfLife.LivingCells.Count();
                 Thread.Sleep(500);
@@ -36,11 +36,6 @@ namespace ConwaysGameOfLifeGUI
         public void SetGridSize(int height, int width)
         {
             _gameOfLife.SetGridSize(height, width);
-        }
-
-        public void SetInitialStateOfGrid(List<Cell> initialCells)
-        {
-            _gameOfLife.SetInitialStateOfGrid(initialCells);
         }
 
         public int GetGenerationNumber()
@@ -53,9 +48,15 @@ namespace ConwaysGameOfLifeGUI
             return _numberOfLivingCells;
         }
 
+        //updategridWithCell?
         public void AddLivingCell(Cell cell)
         {
-            _gameOfLife.AddLivingCell(cell);
+            _gameOfLife.AddCellToGrid(cell);
+        }
+
+        public void ClearGrid()
+        {
+            _gameOfLife.ClearGrid();
         }
     }
 }
