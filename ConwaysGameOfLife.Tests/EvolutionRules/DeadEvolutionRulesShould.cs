@@ -38,7 +38,7 @@ namespace ConwaysGameOfLife.Tests
             var allLiveNeighboursOfAliveCells = new List<Cell>();
             foreach (var livingCell in grid.GetLivingCells())
             {
-                allLiveNeighboursOfAliveCells.AddRange(grid.GetLiveNeighboursOfLivingCell(livingCell));
+                allLiveNeighboursOfAliveCells.AddRange(grid.GetLiveNeighboursOfALivingCell(livingCell));
             }
 
             int[][] expectedDeadCellsGraph =
@@ -75,7 +75,7 @@ namespace ConwaysGameOfLife.Tests
             var allLiveNeighboursOfAliveCells = new List<Cell>();
             foreach (var livingCell in grid.GetLivingCells())
             {
-                allLiveNeighboursOfAliveCells.AddRange(grid.GetLiveNeighboursOfLivingCell(livingCell));
+                allLiveNeighboursOfAliveCells.AddRange(grid.GetLiveNeighboursOfALivingCell(livingCell));
             }
 
             int[][] expectedDeadCellsGraph =
@@ -112,7 +112,7 @@ namespace ConwaysGameOfLife.Tests
 //            var allLiveNeighboursOfAliveCells = new List<Cell>();
 //            foreach (var livingCell in grid.GetLivingCells())
 //            {
-//                allLiveNeighboursOfAliveCells.AddRange(grid.GetLiveNeighboursOfLivingCell(livingCell));
+//                allLiveNeighboursOfAliveCells.AddRange(grid.GetLiveNeighboursOfALivingCell(livingCell));
 //            }
 //
 //            int[][] expectedDeadCellsGraph =
@@ -149,7 +149,7 @@ namespace ConwaysGameOfLife.Tests
             var allLiveNeighboursOfAliveCells = new List<Cell>();
             foreach (var livingCell in grid.GetLivingCells())
             {
-                allLiveNeighboursOfAliveCells.AddRange(grid.GetLiveNeighboursOfLivingCell(livingCell));
+                allLiveNeighboursOfAliveCells.AddRange(grid.GetLiveNeighboursOfALivingCell(livingCell));
             }
 
             int[][] expectedDeadCellsGraph =

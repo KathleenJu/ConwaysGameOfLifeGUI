@@ -206,5 +206,11 @@ namespace ConwaysGameOfLife.Tests
             expectedDeadNeighbours.Should().BeEquivalentTo(expectedDeadNeighbours);
             Assert.Equal(5, actualDeadNeighbours.Count());
         }
+
+        [Fact]
+        public void GetTheRightCellsAndItsNeighbourCountDictionary()
+        {
+
+        }
     }
 }
