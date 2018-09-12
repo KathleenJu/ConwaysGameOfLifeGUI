@@ -14,7 +14,7 @@ namespace ConwaysGameOfLife.Tests
 {
     public class GridShould
     {
-        private readonly TestHelper _testHelper = new TestHelper();
+        private readonly Helper _testHelper = new Helper();
         [Fact]
         public void GetTheLivingNeighboursOfALivingCell()
         {

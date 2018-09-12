@@ -75,7 +75,7 @@
     <Compile Include="CellShould.cs" />
     <Compile Include="EvolutionRules\LiveEvolutionRulesShould.cs" />
     <Compile Include="EvolutionRules\DeadEvolutionRulesShould.cs" />
-    <Compile Include="TestHelper.cs" />
+    <Compile Include="Helper.cs" />
     <Compile Include="GameOfLifeShould.cs" />
     <Compile Include="GridShould.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -12,7 +12,7 @@ namespace ConwaysGameOfLife.Tests
 {
     public class GameOfLifeShould
     {
-        private readonly TestHelper _testHelper = new TestHelper();
+        private readonly Helper _testHelper = new Helper();
         private readonly GameOfLife _gameOfLife = new GameOfLife();
 
         [Fact]

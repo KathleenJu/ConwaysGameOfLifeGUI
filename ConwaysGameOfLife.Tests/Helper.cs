@@ -3,7 +3,7 @@ using ConwaysGameOfLifeGUI;
 
 namespace ConwaysGameOfLife.Tests
 {
-    public class TestHelper
+    public class Helper
     {
         public List<Cell> TransformGraphToCells(int[][] graph)
         {

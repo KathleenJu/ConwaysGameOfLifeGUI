@@ -11,14 +11,14 @@ namespace ConwaysGameOfLife.Tests
 {
     public class LiveEvolutionRulesShould
     {
-        private readonly TestHelper _testHelper = new TestHelper();
+        private readonly Helper _testHelper = new Helper();
         private readonly LiveEvolutionRules _rules = new LiveEvolutionRules();
-        //private readonly Grid _grid = new Grid(5,5);
+        private readonly Grid _grid = new Grid(5,5);
 
         [Fact]
         public void GetTheDeadCellThatShouldBecomeAliveWhenItHasThreeLiveNeighbours()
         {
-            var grid = new Grid(5, 5);
+            _grid.Clear();
             int[][] graph =
             {
                 new[]{0, 0, 1, 1, 0},
@@ -28,12 +28,12 @@ namespace ConwaysGameOfLife.Tests
                 new[]{0, 0, 0, 0, 0}
             };
 
-            _testHelper.TransformGraphToCells(graph).ForEach(cell => grid.AddCell(cell));
+            _testHelper.TransformGraphToCells(graph).ForEach(cell => _grid.AddCell(cell));
 
             var allDeadNeighboursOfAliveCells = new List<Cell>();
-            foreach (var livingCell in grid.GetLivingCells())
+            foreach (var livingCell in _grid.LivingCells)
             {
-                allDeadNeighboursOfAliveCells.AddRange(grid.GetDeadNeighboursOfLivingCell(livingCell));
+                allDeadNeighboursOfAliveCells.AddRange(_grid.GetDeadNeighboursOfLivingCell(livingCell));
             }
 
             int[][] expectedLiveCellsGraph =
@@ -56,7 +56,7 @@ namespace ConwaysGameOfLife.Tests
         [Fact]
         public void GetNoDeadCellsThatShouldBecomeAliveWhenTheyDoNotHaveThreeLiveNeighbours()
         {
-            var grid = new Grid(5, 5);
+            _grid.Clear();
             int[][] graph =
             {
                 new[]{0, 0, 0, 0, 0},
@@ -66,12 +66,12 @@ namespace ConwaysGameOfLife.Tests
                 new[]{0, 0, 0, 0, 0}
             };
 
-            _testHelper.TransformGraphToCells(graph).ForEach(cell => grid.AddCell(cell));
+            _testHelper.TransformGraphToCells(graph).ForEach(cell => _grid.AddCell(cell));
 
             var allDeadNeighboursOfAliveCells = new List<Cell>();
-            foreach (var livingCell in grid.GetLivingCells())
+            foreach (var livingCell in _grid.LivingCells)
             {
-                allDeadNeighboursOfAliveCells.AddRange(grid.GetDeadNeighboursOfLivingCell(livingCell));
+                allDeadNeighboursOfAliveCells.AddRange(_grid.GetDeadNeighboursOfLivingCell(livingCell));
             }            
 
             int[][] expectedLiveCellsGraph =
